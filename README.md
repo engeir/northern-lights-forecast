@@ -13,14 +13,12 @@ with the correct email addresses and password.
 To be able to receive email notification, an email that the script can send from must be added. Follow [this](https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development) description to get started.
 
 ### How?
-This script implements an automated Northern Lights forecast by taking advantage of web scraping of the web site of the IMAGE Magnetometer.
+The script implements an automated Northern Lights forecast by taking advantage of web scraping of the web site of the IMAGE Magnetometer.
 
-At a given threshold of the derivative of the X component of a magnetometer in Tromsø, an email is sent to let the user know of a substorm event.
+At a given threshold of the derivative of the X component of a magnetometer in Tromsø, an email is sent to let the user know of the current substorm event.
 
 ### crontab
-The script can be run every hour from 18:00 through 04:00 during
-the months September through March, using crontab to automate the task.
-To edit the crontab script, type
+The script can be run every hour from 18:00 through 04:00 during the months September through March, using crontab to automate the task. To edit the crontab script, type
 ```
 env EDITOR=nano crontab -e
 ```
