@@ -2,7 +2,7 @@
 > A simple northern lights forecast that automatically send an email during substorm events.
 
 ### Use
-Run the script once to input an email address to send from, including password, and the email you want to receive the notification, or create a fole called `user.py` and paste in
+Run the script once to input an email address to send from, including password, and the email you want to receive the notification. Alternatively, create a file called `user.py` and paste in
 ```
 FROM_EMAIL = "from_emial@gmail.com"
 FROM_PASSWORD = "password"
