@@ -1,6 +1,11 @@
 # northern-lights-forecast
 > A simple northern lights forecast that automatically send an email during substorm events.
 
+### Use
+Run the script once to input an email address to send from, including password, and the email you want to receive the notification.
+
+To be able to receive email notification, an email that the script can send from must be added. Follow [this](https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development) description to get started.
+
 ### How?
 This script implements an automated Northern Lights forecast by taking advantage of web scraping of the web site of the IMAGE Magnetometer.
 
@@ -11,13 +16,13 @@ The script can be run every hour from 18:00 through 04:00 during
 the months September through March, using crontab to automate the task.
 To edit the crontab script, type
 ```
-    env EDITOR=nano crontab -e
+env EDITOR=nano crontab -e
 ```
 into the terminal.
 
 Enter
 ```
-  0 0-4,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python northern_lights.py >> t.txt 2>&1
+0 0-4,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python northern_lights.py >> t.txt 2>&1
 ```
 to set the script to run as described above, or edit to a custom setting:
 https://crontab.guru/
