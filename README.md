@@ -20,6 +20,7 @@ At a given threshold of the derivative of the X component of a magnetometer in T
 
 ### crontab
 > Works with macOS
+
 The script can be run every hour from 18:00 through 04:00 during the months September through March, using crontab to automate the task. Run
 ```
 bash crontab.sh username
