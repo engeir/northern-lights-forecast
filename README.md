@@ -4,7 +4,7 @@
 ### Use
 Run the script once to input an email address to send from, including password, and the email you want to receive the notification. Alternatively, create a file called `user.py` and paste in
 ```
-FROM_EMAIL = "from_emial@gmail.com"
+FROM_EMAIL = "from_email@gmail.com"
 FROM_PASSWORD = "password"
 TO_EMAIL = "to_email@gmail.com"
 ```
