@@ -19,6 +19,7 @@ The script implements an automated Northern Lights forecast by taking advantage 
 At a given threshold of the derivative of the X component of a magnetometer in Tromsø, an email is sent to let the user know of the current substorm event.
 
 ### crontab
+> Works with macOS
 The script can be run every hour from 18:00 through 04:00 during the months September through March, using crontab to automate the task. Run
 ```
 bash crontab.sh username
