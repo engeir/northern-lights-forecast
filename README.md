@@ -1,4 +1,4 @@
-# northern-lights-forecast
+# Northern Lights Forecast
 ![CodeQL](https://github.com/engeir/northern-lights-forecast/workflows/CodeQL/badge.svg)
 > A simple web scraping northern lights forecast that automatically send an email during substorm events
 
