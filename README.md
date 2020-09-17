@@ -35,3 +35,15 @@ Add
 ```
 to the script to set crontab to run as described above, or edit to a custom setting:
 https://crontab.guru/
+
+
+### Issues
+##### Geckodriver
+If Geckodriver is not in path see [https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path](https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path).
+
+##### Crontab
+If you get the error `no crontab for <usename>`, do
+```
+crontab -e
+```
+and choose which ever version you prefer.
