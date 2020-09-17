@@ -15,3 +15,25 @@ Traceback (most recent call last):
     raise exception_class(message, screen, stacktrace)
 selenium.common.exceptions.TimeoutException: Message: Connection refused (os error 61)
 
+Traceback (most recent call last):
+  File "/home/een023/.local/lib/python3.8/site-packages/selenium/webdriver/common/service.py", line 72, in start
+    self.process = subprocess.Popen(cmd, env=self.env,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'geckodriver'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "northern_lights.py", line 94, in <module>
+    open_browser(hide=True)
+  File "northern_lights.py", line 50, in open_browser
+    browser = webdriver.Firefox(options=opts)
+  File "/home/een023/.local/lib/python3.8/site-packages/selenium/webdriver/firefox/webdriver.py", line 164, in __init__
+    self.service.start()
+  File "/home/een023/.local/lib/python3.8/site-packages/selenium/webdriver/common/service.py", line 81, in start
+    raise WebDriverException(
+selenium.common.exceptions.WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+
