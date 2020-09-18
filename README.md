@@ -14,18 +14,18 @@ with the correct email addresses and password.
 To be able to receive email notification, an email that the script can send from must be added. Follow [this](https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development) description to get started.
 
 ### How?
-The script implements an automated Northern Lights forecast by taking advantage of web scraping of the web site of the IMAGE Magnetometer.
+The script implements an automated Northern Lights forecast by taking advantage of web scraping of the web site of [Tromsø Geophysical Observatory](http://geo.phys.uit.no/) (TGO).
 
 At a given threshold of the derivative of the X component of a magnetometer in Tromsø, an email is sent to let the user know of the current substorm event.
 
 ### crontab
-> Works with macOS
+> Tested with macOS and Ubuntu
 
 The script can be run every hour from 18:00 through 04:00 during the months September through March, using crontab to automate the task. Run
 ```
-bash crontab.sh username
+bash crontab.sh <username>
 ```
-(might need `sudo bash crontab.sh username`) to set this up (change to your own user name), or edit the crontab script manually with
+(might need `sudo bash crontab.sh <username>`) to set this up (change to your own user name), or edit the crontab script manually with
 ```
 env EDITOR=nano crontab -e
 ```
@@ -39,7 +39,7 @@ https://crontab.guru/
 
 ### Issues
 ##### Geckodriver
-If Geckodriver is not in path see [https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path](https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path).
+If Geckodriver is not in `PATH` see [https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path](https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path).
 
 ##### Crontab
 If you get the error `no crontab for <usename>`, do
