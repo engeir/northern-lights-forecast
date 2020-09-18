@@ -47,3 +47,13 @@ If you get the error `no crontab for <usename>`, do
 crontab -e
 ```
 and choose which ever version you prefer.
+
+Python and Geckodriver need to be specified in `PATH` for crontab to work. I.e. if Python sits at `/usr/bin` and Geckodriver is in `/home/<username>`, do
+```
+crontab -u <username> -e
+```
+and add
+```
+PATH=/home/<username>:/usr/bin
+```
+to the first line.

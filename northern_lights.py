@@ -79,7 +79,6 @@ def navigate(browser):
     y = s.astype(np.float)
     y = np.asarray([v for v in y if v % 99999.9])
     dy = np.gradient(y)
-    print(np.min(dy))
     if np.min(dy) < - 10:
         send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
 
