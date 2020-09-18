@@ -1,17 +1,16 @@
 Traceback (most recent call last):
-  File "northern_lights.py", line 116, in <module>
-    open_browser(hide=False)
-  File "northern_lights.py", line 52, in open_browser
-    browser = webdriver.Firefox()
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/selenium/webdriver/firefox/webdriver.py", line 170, in __init__
-    RemoteWebDriver.__init__(
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 157, in __init__
-    self.start_session(capabilities, browser_profile)
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 252, in start_session
-    response = self.execute(Command.NEW_SESSION, parameters)
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.TimeoutException: Message: Connection refused (os error 61)
-
+  File "northern_lights.py", line 93, in <module>
+    open_browser(hide=True)
+  File "northern_lights.py", line 54, in open_browser
+    navigate(browser)
+  File "northern_lights.py", line 83, in navigate
+    send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
+  File "northern_lights.py", line 39, in send_email
+    mail.login(f'{user.FROM_EMAIL}', f'{user.FROM_PASSWORD}')
+  File "/usr/lib/python3.8/smtplib.py", line 734, in login
+    raise last_exception
+  File "/usr/lib/python3.8/smtplib.py", line 723, in login
+    (code, resp) = self.auth(
+  File "/usr/lib/python3.8/smtplib.py", line 646, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials y196sm410233lfa.0 - gsmtp')

@@ -60,47 +60,24 @@ def open_browser(hide=True):
 
 
 def navigate(browser):
-    browser.get('https://space.fmi.fi/image/www/index.php?page=user_defined')
+    browser.get('https://flux.phys.uit.no/cgi-bin/mkascii.cgi?site=tro2a&year=2020&month=1&day=1&res=1min&pwd=&format=html&comps=DHZ&RTData=+Get+Realtime+Data+')
     time.sleep(5)
 
-    clear = browser.find_element_by_css_selector('#clear_all')
-    clear.click()
-
-    time.sleep(1)
-    tro = browser.find_element_by_css_selector('#TRO')
-    tro.click()
-
-    day = browser.find_element_by_css_selector(
-        '#LengthDayMenu > option:nth-child(1)')
-    day.click()
-    hour = browser.find_element_by_css_selector(
-        '#LengthHourMenu > option:nth-child(4)')
-    hour.click()
-    scale_100 = browser.find_element_by_css_selector(
-        '#scaling > option:nth-child(2)')
-    scale_100.click()
-    submit = browser.find_element_by_css_selector('#submit_grams')
-    submit.click()
-
-    time.sleep(5)
-    x_txt = browser.find_element_by_css_selector(
-        '#download_links > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > a:nth-child(1)')
-    x_txt.click()
-
-    time.sleep(5)
-    browser.switch_to.window(browser.window_handles[-1])
-
-    time.sleep(1)
     pure = browser.find_element_by_xpath('/html/body/pre')
     saved = pure.text.splitlines()
     for v, ss in enumerate(saved):
-        saved[v] = ss.split(' ')
+        saved[v] = ss.split()
 
     del saved[0]
     del saved[0]
+    del saved[0]
+    del saved[0]
+    del saved[0]
+    del saved[0]
     s = np.array(saved)
-    s = s[:, 9]
+    s = s[-120:, 3]  # Chose the last 2 hours (120 mins)
     y = s.astype(np.float)
+    y = np.asarray([v for v in y if v % 99999.9])
     dy = np.gradient(y)
     if np.min(dy) < - 10:
         send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
