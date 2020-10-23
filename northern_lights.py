@@ -22,9 +22,9 @@ import numpy as np
 
 def create_file():
     with open('user.py', 'w') as file:
-        f_e = str(input('Type in the adress of the email you want to send from:\t'))
+        f_e = str(input('Type in the address of the email you want to send from:\t'))
         f_p = str(input('Type in the password of the email you want to send from:\t'))
-        t_e = str(input('Type in the adress of the email you want to send to:\t'))
+        t_e = str(input('Type in the address of the email you want to send to:\t'))
         file.write(f'FROM_EMAIL = "{f_e}"\n')
         file.write(f'FROM_PASSWORD = "{f_p}"\n')
         file.write(f'TO_EMAIL = "{t_e}"\n')
