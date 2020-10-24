@@ -20,11 +20,6 @@ The script implements an automated Northern Lights forecast by taking advantage 
 The script will try to download a [`.gif`](https://flux.phys.uit.no/Last24/Last24_tro2a.gif) file with plots of the components of a magnetometer. One component is all that is needed (blue line) and the script will then locate the blue pixels and fit a graph to the pixel locations with a [Savitzky-Golay filter](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html).
 
 Below is an example with the original image above the new reverse engeneered graph.
-<figure class="half>
-<a href="assets/before.jpg"><img src="assets/before.jpg"></a>
-<a href="assets/after.png"><img src="assets/after.png"></a>
-</figure>
-
 ![assets/before.jpg](assets/before.jpg) | ![assets/after.png](assets/after.png)
 
 ### 2: Web scraping
