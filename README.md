@@ -48,12 +48,12 @@ crontab -e
 ```
 and choose which ever version you prefer.
 
-Python and Geckodriver need to be specified in `PATH` for crontab to work. I.e. if Python sits at `/usr/bin` and Geckodriver is in `/home/<username>`, do
+Python, Geckodriver and Pytesseract need to be specified in `PATH` for crontab to work. I.e. if Python sits at `/usr/bin`, Geckodriver at `/home/<username>` and Pytesseract at `/usr/local/bin`, do
 ```
 crontab -u <username> -e
 ```
 and add
 ```
-PATH=/home/<username>:/usr/bin
+PATH=/home/<username>:/usr/bin:/usr/local/bin
 ```
 to the first line.
