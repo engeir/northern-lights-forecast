@@ -74,22 +74,25 @@ def main(scaling):
     x_ = np.linspace(np.min(x_mean), np.max(x_mean), 10000)
     y_i = - np.interp(x_, x_mean, y_mean)
     dy = savgol_filter(y_i, 501, 3, deriv=1)
+    dy = dy[int(len(x_) * .8):]
 
-    # === < Plot the result > ===
-    import matplotlib.pyplot as plt
-    y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
-    # Rescale x-axis to 22-hour plot
-    # TODO: find the exact timespan used in the image
-    x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
-    x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
-    plt.figure()
-    plt.plot(x, - y, 'b')
-    plt.plot(x_, y_, 'r')
-    # plt.savefig('after.png', dpi=200)
+    # # === < Plot the result > ===
+    # import matplotlib.pyplot as plt
+    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
+    # # Rescale x-axis to 22-hour plot
+    # # TODO: find the exact timespan used in the image
+    # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
+    # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
     # plt.figure()
-    # plt.plot(x_, dy, 'r')
-    plt.show()
-    # === </ Plot the result > ===
+    # plt.plot(x, - y, 'b')
+    # plt.plot(x_, y_, 'r')
+    # plt.figure()
+    # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
+    # # plt.savefig('after.png', dpi=200)
+    # # plt.figure()
+    # # plt.plot(x_, dy, 'r')
+    # plt.show()
+    # # === </ Plot the result > ===
 
     return np.min(dy)
 

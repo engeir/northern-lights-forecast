@@ -42,10 +42,19 @@ def read(image):
     """
     x_0, x_1 = 1, 40
     y_t0, y_t1 = 370, 390
-    y_b0, y_b1 = 465, 485
+    y_b0, y_b1 = 455, 485
     y_t, y_b = 380, 475
     txt_img0 = np.hstack([image[y_t0:y_t1, x_0:x_1, :]])
     txt_img1 = np.hstack([image[y_b0:y_b1, x_0:x_1, :]])
+    # Uncomment block below to verify the text is completely inside the images.
+    # # === < View y axis text > ===
+    # import matplotlib.pyplot as plt
+    # plt.figure()
+    # plt.imshow(txt_img0)
+    # plt.figure()
+    # plt.imshow(txt_img1)
+    # plt.show()
+    # # === </ View y axis text > ===
     # By default OpenCV stores images in BGR format and since pytesseract assumes RGB format,
     # we need to convert from BGR to RGB format/mode:
     img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
@@ -82,15 +91,15 @@ def find_colour(image):
     # Set the masked pixels to white
     output[output > 0] = 255
 
-    # === < Show figures > ===
-    import matplotlib.pyplot as plt
-    plt.figure()
-    plt.imshow(image)
-    # plt.savefig('before.png', dpi=200)
+    # # === < Show figures > ===
+    # import matplotlib.pyplot as plt
     # plt.figure()
-    # plt.imshow(output)
-    # plt.show()
-    # === </ Show figures > ===
+    # plt.imshow(image)
+    # # plt.savefig('before.png', dpi=200)
+    # # plt.figure()
+    # # plt.imshow(output)
+    # # plt.show()
+    # # === </ Show figures > ===
     # Save the black/white image of the blue structures
     cv2.imwrite('new_im.jpg', np.hstack([output]))
 
