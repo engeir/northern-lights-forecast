@@ -1,16 +1,108 @@
 Traceback (most recent call last):
-  File "northern_lights.py", line 93, in <module>
-    open_browser(hide=True)
-  File "northern_lights.py", line 54, in open_browser
-    navigate(browser)
-  File "northern_lights.py", line 83, in navigate
-    send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
-  File "northern_lights.py", line 39, in send_email
-    mail.login(f'{user.FROM_EMAIL}', f'{user.FROM_PASSWORD}')
-  File "/usr/lib/python3.8/smtplib.py", line 734, in login
-    raise last_exception
-  File "/usr/lib/python3.8/smtplib.py", line 723, in login
-    (code, resp) = self.auth(
-  File "/usr/lib/python3.8/smtplib.py", line 646, in auth
-    raise SMTPAuthenticationError(code, resp)
-smtplib.SMTPAuthenticationError: (535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials y196sm410233lfa.0 - gsmtp')
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 250, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1522, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'tesseract': 'tesseract'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "northern_lights.py", line 62, in <module>
+    scaling = img.main()
+  File "/Users/eirikenger/n_l/img.py", line 85, in main
+    scaling = read(image)
+  File "/Users/eirikenger/n_l/img.py", line 44, in read
+    lim_0 = float(pytesseract.image_to_string(img_rgb0))
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 374, in image_to_string
+    }[output_type]()
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 373, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 282, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 254, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+Traceback (most recent call last):
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 250, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1522, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'tesseract': 'tesseract'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "northern_lights.py", line 62, in <module>
+    scaling = img.main()
+  File "/Users/eirikenger/n_l/img.py", line 85, in main
+    scaling = read(image)
+  File "/Users/eirikenger/n_l/img.py", line 44, in read
+    lim_0 = float(pytesseract.image_to_string(img_rgb0))
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 374, in image_to_string
+    }[output_type]()
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 373, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 282, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 254, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+Traceback (most recent call last):
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 250, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1522, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'tesseract': 'tesseract'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "northern_lights.py", line 62, in <module>
+    scaling = img.main()
+  File "/Users/eirikenger/n_l/img.py", line 85, in main
+    scaling = read(image)
+  File "/Users/eirikenger/n_l/img.py", line 44, in read
+    lim_0 = float(pytesseract.image_to_string(img_rgb0))
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 374, in image_to_string
+    }[output_type]()
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 373, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 282, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 254, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+Traceback (most recent call last):
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 250, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1522, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'tesseract': 'tesseract'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "northern_lights.py", line 62, in <module>
+    scaling = img.main()
+  File "/Users/eirikenger/n_l/img.py", line 85, in main
+    scaling = read(image)
+  File "/Users/eirikenger/n_l/img.py", line 44, in read
+    lim_0 = float(pytesseract.image_to_string(img_rgb0))
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 374, in image_to_string
+    }[output_type]()
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 373, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 282, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "/Users/eirikenger/Library/Python/3.7/lib/python/site-packages/pytesseract/pytesseract.py", line 254, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.

@@ -14,17 +14,18 @@ into the terminal.
 """
 
 import smtplib
-import time
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 import numpy as np
+
+from browser import open_browser
+import img
+import image_analysis as ima
 
 
 def create_file():
     with open('user.py', 'w') as file:
-        f_e = str(input('Type in the adress of the email you want to send from:\t'))
+        f_e = str(input('Type in the address of the email you want to send from:\t'))
         f_p = str(input('Type in the password of the email you want to send from:\t'))
-        t_e = str(input('Type in the adress of the email you want to send to:\t'))
+        t_e = str(input('Type in the address of the email you want to send to:\t'))
         file.write(f'FROM_EMAIL = "{f_e}"\n')
         file.write(f'FROM_PASSWORD = "{f_p}"\n')
         file.write(f'TO_EMAIL = "{t_e}"\n')
@@ -42,47 +43,6 @@ def send_email(txt):
     mail.close()
 
 
-def open_browser(hide=True):
-    try:
-        if hide:
-            opts = Options()
-            opts.headless = True
-            browser = webdriver.Firefox(options=opts)
-        else:
-            browser = webdriver.Firefox()
-
-        navigate(browser)
-    finally:
-        try:
-            browser.quit()
-        except:
-            pass
-
-
-def navigate(browser):
-    browser.get('https://flux.phys.uit.no/cgi-bin/mkascii.cgi?site=tro2a&year=2020&month=1&day=1&res=1min&pwd=&format=html&comps=DHZ&RTData=+Get+Realtime+Data+')
-    time.sleep(5)
-
-    pure = browser.find_element_by_xpath('/html/body/pre')
-    saved = pure.text.splitlines()
-    for v, ss in enumerate(saved):
-        saved[v] = ss.split()
-
-    del saved[0]
-    del saved[0]
-    del saved[0]
-    del saved[0]
-    del saved[0]
-    del saved[0]
-    s = np.array(saved)
-    s = s[-120:, 3]  # Chose the last 2 hours (120 mins)
-    y = s.astype(np.float)
-    y = np.asarray([v for v in y if v % 99999.9])
-    dy = np.gradient(y)
-    if np.min(dy) < - 10:
-        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
-
-
 try:
     import user
 except Exception:
@@ -90,4 +50,16 @@ except Exception:
 finally:
     import user
 
-open_browser(hide=True)
+# Set which method to use.
+# version = 'selenium_scrape'
+version = 'img_analysis'
+
+if version == 'selenium_scrape':
+    dy = open_browser(hide=True)
+    if dy < - 10:
+        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
+elif version == 'img_analysis':
+    scaling = img.main()
+    dy = ima.main(scaling)
+    if dy < - 2:
+        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
