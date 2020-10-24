@@ -76,18 +76,19 @@ def main(scaling):
     dy = savgol_filter(y_i, 501, 3, deriv=1)
 
     # === < Plot the result > ===
-    # import matplotlib.pyplot as plt
-    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
+    import matplotlib.pyplot as plt
+    y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
     # Rescale x-axis to 22-hour plot
     # TODO: find the exact timespan used in the image
-    # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
-    # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
-    # plt.figure()
-    # plt.plot(x, - y, 'b')
-    # plt.plot(x_, y_, 'r')
+    x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
+    x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
+    plt.figure()
+    plt.plot(x, - y, 'b')
+    plt.plot(x_, y_, 'r')
+    # plt.savefig('after.png', dpi=200)
     # plt.figure()
     # plt.plot(x_, dy, 'r')
-    # plt.show()
+    plt.show()
     # === </ Plot the result > ===
 
     return np.min(dy)

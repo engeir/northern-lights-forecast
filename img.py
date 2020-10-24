@@ -83,9 +83,10 @@ def find_colour(image):
     output[output > 0] = 255
 
     # === < Show figures > ===
-    # import matplotlib.pyplot as plt
-    # plt.figure()
-    # plt.imshow(image)
+    import matplotlib.pyplot as plt
+    plt.figure()
+    plt.imshow(image)
+    # plt.savefig('before.png', dpi=200)
     # plt.figure()
     # plt.imshow(output)
     # plt.show()
