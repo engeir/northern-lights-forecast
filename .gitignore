@@ -1,4 +1,7 @@
+# Repository files
 user.py
+*.gif
+*.jpg
 
 .vscode
 .mypy_cache
