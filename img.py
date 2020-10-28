@@ -40,27 +40,65 @@ def read(image):
     Returns:
         float: scaling factor of y axis to pixels
     """
-    x_0, x_1 = 1, 40
-    y_t0, y_t1 = 370, 390
-    y_b0, y_b1 = 455, 485
-    y_t, y_b = 380, 475
-    txt_img0 = np.hstack([image[y_t0:y_t1, x_0:x_1, :]])
-    txt_img1 = np.hstack([image[y_b0:y_b1, x_0:x_1, :]])
-    # Uncomment block below to verify the text is completely inside the images.
-    # # === < View y axis text > ===
-    # import matplotlib.pyplot as plt
-    # plt.figure()
-    # plt.imshow(txt_img0)
-    # plt.figure()
-    # plt.imshow(txt_img1)
-    # plt.show()
-    # # === </ View y axis text > ===
-    # By default OpenCV stores images in BGR format and since pytesseract assumes RGB format,
-    # we need to convert from BGR to RGB format/mode:
-    img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
-    img_rgb1 = cv2.cvtColor(txt_img1, cv2.COLOR_BGR2RGB)
-    lim_0 = float(pytesseract.image_to_string(img_rgb0))
-    lim_1 = float(pytesseract.image_to_string(img_rgb1))
+    if True:
+        images = np.hstack([image[360:530, 1:40, :]])
+        data=pytesseract.image_to_boxes(images)
+
+        d = data.split('\n')
+        d = [data for data in d if len(data) > 1]
+        d = d[::-1]
+        print(d)
+        c = 0
+        lim_0 = ''
+        y_0 = ''
+        lim_1 = ''
+        y_1 = ''
+        for l in d:
+            l = l.split()
+            if l[0] == '-':
+                c += 1
+            else:
+                if c == 0:
+                    lim_0 += l[0]
+                    y_0 = l[2]
+                elif c == 1:
+                    lim_1 += l[0]
+                    y_1 = l[2]
+            if c >= 2:
+                break
+        lim_0 = float(lim_0[::-1])
+        y_b = float(y_0)
+        lim_1 = float(lim_1[::-1])
+        y_t = float(y_1)
+        # print(lim_0, lim_1, y_b, y_t)
+        # print(round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2))
+        # import matplotlib.pyplot as plt
+        # plt.figure()
+        # plt.imshow(images)
+        # plt.show()
+    else:
+        x_0, x_1 = 1, 40
+        y_t0, y_t1 = 360, 390
+        y_b0, y_b1 = 455, 485
+        y_t, y_b = 380, 475
+        txt_img0 = np.hstack([image[y_t0:y_t1, x_0:x_1, :]])
+        txt_img1 = np.hstack([image[y_b0:y_b1, x_0:x_1, :]])
+        # Uncomment block below to verify the text is completely inside the images.
+        # # === < View y axis text > ===
+        # import matplotlib.pyplot as plt
+        # plt.figure()
+        # plt.imshow(txt_img0)
+        # plt.figure()
+        # plt.imshow(txt_img1)
+        # plt.show()
+        # exit()
+        # # === </ View y axis text > ===
+        # By default OpenCV stores images in BGR format and since pytesseract assumes RGB format,
+        # we need to convert from BGR to RGB format/mode:
+        img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
+        img_rgb1 = cv2.cvtColor(txt_img1, cv2.COLOR_BGR2RGB)
+        lim_0 = float(pytesseract.image_to_string(img_rgb0))
+        lim_1 = float(pytesseract.image_to_string(img_rgb1))
     # print(f'Pixels to nT: {abs(y_t - y_b)} to {abs(lim_1 - lim_0)}')
     # print(f'Increase by {round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2)} times')
     return round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2)
