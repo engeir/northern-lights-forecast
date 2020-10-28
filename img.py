@@ -47,7 +47,7 @@ def read(image):
         d = data.split('\n')
         d = [data for data in d if len(data) > 1]
         d = d[::-1]
-        print(d)
+        # print(d)
         c = 0
         lim_0 = ''
         y_0 = ''
