@@ -57,9 +57,9 @@ version = 'img_analysis'
 if version == 'selenium_scrape':
     dy = open_browser(hide=True)
     if dy < - 10:
-        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
+        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\nHave a look at: http://fox.phys.uit.no/ASC/ASC01.html')
 elif version == 'img_analysis':
     scaling = img.main()
     dy = ima.main(scaling)
     if dy < - 2:
-        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}')
+        send_email(f'Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\nHave a look at: http://fox.phys.uit.no/ASC/ASC01.html')
