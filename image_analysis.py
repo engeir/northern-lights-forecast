@@ -57,7 +57,7 @@ def main(scaling):
         float: the scaling factor
     """
     # Load image
-    im = cv2.imread('new_im.jpg')
+    im = cv2.imread('assets/new_im.jpg')
 
     # Define the blue colour we want to find - remember OpenCV uses BGR ordering
     blue = [255, 255, 255]
@@ -76,23 +76,25 @@ def main(scaling):
     dy = savgol_filter(y_i, 501, 3, deriv=1)
     dy = dy[int(len(x_) * .8):]
 
-    # # === < Plot the result > ===
-    # import matplotlib.pyplot as plt
-    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
-    # # Rescale x-axis to 22-hour plot
-    # # TODO: find the exact timespan used in the image
+    # === < Plot the result > ===
+    import matplotlib.pyplot as plt
+    y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
+    # Rescale x-axis to 22-hour plot
+    # TODO: find the exact timespan used in the image
     # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
     # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
-    # plt.figure()
-    # plt.plot(x, - y, 'b')
-    # plt.plot(x_, y_, 'r')
+    plt.figure()
+    plt.imshow(im)
+    plt.plot(x, y / scaling, 'b')
+    plt.plot(x_, - y_ / scaling, 'r')
     # plt.figure()
     # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
-    # # plt.savefig('after.png', dpi=200)
-    # # plt.figure()
-    # # plt.plot(x_, dy, 'r')
+    # plt.savefig('after.png', dpi=200)
+    # plt.figure()
+    # plt.plot(x_, dy, 'r')
+    plt.savefig('assets/plot.pdf', dpi=300, bbox_inches='tight', format='pdf')
     # plt.show()
-    # # === </ Plot the result > ===
+    # === </ Plot the result > ===
 
     return np.min(dy)
 

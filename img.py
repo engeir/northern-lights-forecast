@@ -20,12 +20,12 @@ def download():
         os.remove(file)
 
     url = 'https://flux.phys.uit.no/Last24/Last24_tro2a.gif'
-    wget.download(url)
+    wget.download(url, out='assets/Last24_tro2a.gif')
 
-    gif = cv2.VideoCapture('Last24_tro2a.gif')
+    gif = cv2.VideoCapture('assets/Last24_tro2a.gif')
     ret, frame = gif.read()
-    cv2.imwrite('images.jpg', frame)
-    image = cv2.imread('images.jpg')
+    cv2.imwrite('assets/images.jpg', frame)
+    image = cv2.imread('assets/images.jpg')
 
     return image
 
@@ -139,7 +139,7 @@ def find_colour(image):
     # # plt.show()
     # # === </ Show figures > ===
     # Save the black/white image of the blue structures
-    cv2.imwrite('new_im.jpg', np.hstack([output]))
+    cv2.imwrite('assets/new_im.jpg', np.hstack([output]))
 
 
 def main():
