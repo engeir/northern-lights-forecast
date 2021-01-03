@@ -32,6 +32,7 @@ def create_file():
 
 
 def send_email(txt):
+    # TODO: check if [sendgrid](https://sendgrid.com/) or [mailgun](https://www.mailgun.com/) are better to use.
     content = (str(txt))
     mail = smtplib.SMTP('smtp.gmail.com', 587)
     mail.ehlo()
