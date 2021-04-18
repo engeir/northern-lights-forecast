@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "northern-lights-forecast"
 version = "0.1.0"
-description = "Northern Lights Forecast"
+description = "A simple web scraping northern lights forecast that automatically send an email during substorm events"
 authors = ["Eirik Rolland Enger <eirroleng@gmail.com>"]
 license = "MIT"
 readme = "README.rst"
@@ -19,8 +19,14 @@ classifiers = [
 Changelog = "https://github.com/engeir/northern-lights-forecast/releases"
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = ">=3.7,<3.10"
 click = "^7.0"
+numpy = "^1.20.2"
+selenium = "^3.141.0"
+opencv-python = "^4.5.1"
+pytesseract = "^0.3.7"
+wget = "^3.2"
+scipy = "^1.6.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

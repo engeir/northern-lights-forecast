@@ -16,10 +16,11 @@ into the terminal.
 """
 import smtplib
 
-import image_analysis as ima
-import img
 import numpy as np
-from browser import open_browser
+
+import northern_lights_forecast.image_analysis as ima
+import northern_lights_forecast.img as img
+from northern_lights_forecast.browser import open_browser
 
 
 def create_file():
