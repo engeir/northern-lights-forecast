@@ -82,7 +82,24 @@ file called `user.py` and paste in
 with the correct email addresses and password.
 
 To be able to receive email notification, an email that the script can send
-from must be added. See <RealPython_>'s description to get started.
+from must be added. See RealPython_'s description to get started.
+
+How?
+----
+
+The script implements an automated Northern Lights forecast by taking advantage
+of the web site of `Tromsø Geophysical Observatory`_ (TGO). Two methods was
+created to be able to consistently obtain needed data.
+
+1: Image analysis
+^^^^^^^^^^^^^^^^^
+
+The script will try to download a .gif file with plots of the components of a
+magnetometer. One component is all that is needed (blue line) and the script
+will then locate the blue pixels and fit a graph to the pixel locations with a
+Savitzky-Golay filter.
+
+Below is an example with the original image above the new reverse engeneered graph.
 
 Contributing
 ------------
@@ -119,6 +136,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _pip: https://pip.pypa.io/
 .. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 .. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
+.. _Tromsø Geophysical Observatory: https://www.tgo.uit.no/
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
 .. _Usage: https://northern-lights-forecast.readthedocs.io/en/latest/usage.html
