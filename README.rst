@@ -69,6 +69,20 @@ Usage
 
 Please see the `Command-line Reference <Usage_>`_ for details.
 
+Run the script once to input an email address to send from, including password,
+and the email you want to receive the notification. Alternatively, create a
+file called `user.py` and paste in
+
+.. code:: console
+
+    FROM_EMAIL = "from_email@gmail.com"
+    FROM_PASSWORD = "password"
+    TO_EMAIL = "to_email@gmail.com"
+
+with the correct email addresses and password.
+
+To be able to receive email notification, an email that the script can send
+from must be added. See <RealPython_>'s description to get started.
 
 Contributing
 ------------
@@ -104,6 +118,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _file an issue: https://github.com/engeir/northern-lights-forecast/issues
 .. _pip: https://pip.pypa.io/
 .. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
+.. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
 .. _Usage: https://northern-lights-forecast.readthedocs.io/en/latest/usage.html
