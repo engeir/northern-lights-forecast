@@ -92,7 +92,7 @@ of the web site of `Tromsø Geophysical Observatory`_ (TGO).
 Image analysis
 ^^^^^^^^^^^^^^
 
-The script will try to download a :code:`.gif_` file with plots of the components of a
+The script will try to download a :code:`.gif`_ file with plots of the components of a
 magnetometer. One component is all that is needed (blue line) and the script
 will then locate the blue pixels and fit a graph to the pixel locations with a
 `Savitzky-Golay filter`_.
@@ -131,7 +131,7 @@ and add
 to the script to set cron to run as described above, or edit to a custom
 setting: https://crontab.guru/
 
-When setting up crop, the python environment and the tesseract executable has
+When setting up cron, the python environment and the tesseract executable has
 to be included to path in the cron script. If the older version using selenium
 is used then geckodriver is needed in path.
 
@@ -171,7 +171,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 .. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
 .. _Tromsø Geophysical Observatory: https://www.tgo.uit.no/
-.. _gif: https://flux.phys.uit.no/Last24/Last24_tro2a.gif
+.. _.gif: https://flux.phys.uit.no/Last24/Last24_tro2a.gif
 .. _Savitzky-Golay filter: https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
