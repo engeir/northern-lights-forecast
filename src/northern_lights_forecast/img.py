@@ -31,9 +31,7 @@ def download():
     gif = cv2.VideoCapture("assets/Last24_tro2a.gif")
     ret, frame = gif.read()
     cv2.imwrite("assets/images.jpg", frame)
-    image = cv2.imread("assets/images.jpg")
-
-    return image
+    return cv2.imread("assets/images.jpg")
 
 
 def read(image):
