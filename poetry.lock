@@ -848,13 +848,14 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autobuild"
-version = "2020.9.1"
+version = "2021.3.14"
 description = "Rebuild Sphinx documentation on changes, with live-reload in the browser."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
+colorama = "*"
 livereload = "*"
 sphinx = "*"
 
@@ -1091,7 +1092,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "5a46362e6b31602c9355bca1fee7dd56a02c7a6cad2816dd4c33faf0e42ce907"
+content-hash = "741b9c4232c8726b05b055965f9b27e4c06eacb6189a73eb26f780e4747a7926"
 
 [metadata.files]
 alabaster = [
@@ -1752,8 +1753,8 @@ sphinx = [
     {file = "Sphinx-3.5.4.tar.gz", hash = "sha256:19010b7b9fa0dc7756a6e105b2aacd3a80f798af3c25c273be64d7beeb482cb1"},
 ]
 sphinx-autobuild = [
-    {file = "sphinx-autobuild-2020.9.1.tar.gz", hash = "sha256:4b184a7db893f2100bbd831991ae54ca89167a2b9ce68faea71eaa9e37716aed"},
-    {file = "sphinx_autobuild-2020.9.1-py3-none-any.whl", hash = "sha256:df5c72cb8b8fc9b31279c4619780c4e95029be6de569ff60a8bb2e99d20f63dd"},
+    {file = "sphinx-autobuild-2021.3.14.tar.gz", hash = "sha256:de1ca3b66e271d2b5b5140c35034c89e47f263f2cd5db302c9217065f7443f05"},
+    {file = "sphinx_autobuild-2021.3.14-py3-none-any.whl", hash = "sha256:8fe8cbfdb75db04475232f05187c776f46f6e9e04cacf1e49ce81bdac649ccac"},
 ]
 sphinx-click = [
     {file = "sphinx-click-2.7.1.tar.gz", hash = "sha256:1b6175df5392564fd3780000d4627e5a2c8c3b29d05ad311dbbe38fcf5f3327b"},
