@@ -63,7 +63,6 @@ You can install *Northern Lights Forecast* via pip_ from PyPI_:
 
 Install tesseract_, used with the package pytesseract.
 
-
 Usage
 -----
 
@@ -88,18 +87,53 @@ How?
 ----
 
 The script implements an automated Northern Lights forecast by taking advantage
-of the web site of `Tromsø Geophysical Observatory`_ (TGO). Two methods was
-created to be able to consistently obtain needed data.
+of the web site of `Tromsø Geophysical Observatory`_ (TGO).
 
-1: Image analysis
-^^^^^^^^^^^^^^^^^
+Image analysis
+^^^^^^^^^^^^^^
 
-The script will try to download a .gif file with plots of the components of a
+The script will try to download a :code:`.gif_` file with plots of the components of a
 magnetometer. One component is all that is needed (blue line) and the script
 will then locate the blue pixels and fit a graph to the pixel locations with a
-Savitzky-Golay filter.
+`Savitzky-Golay filter`_.
 
 Below is an example with the original image above the new reverse engeneered graph.
+
+.. image:: assets/before.jpg
+
+.. image:: assets/after.png
+
+At a given threshold of the derivative of the X component of a magnetometer in
+Tromsø, an email is sent to let the user know of the current substorm event.
+
+Cron
+----
+
+The script can be run every hour from 18:00 through 04:00 during the months
+September through March, using cron to automate the task. Run
+
+.. code:: console
+
+    bash crontab.sh <username>
+
+to set this up, or edit the cron script manually with
+
+.. code:: console
+
+    env EDITOR=nano crontab -e
+
+and add
+
+.. code:: console
+
+    0 0-4,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python northern_lights.py >> t.txt 2>&1
+
+to the script to set cron to run as described above, or edit to a custom
+setting: https://crontab.guru/
+
+When setting up crop, the python environment and the tesseract executable has
+to be included to path in the cron script. If the older version using selenium
+is used then geckodriver is needed in path.
 
 Contributing
 ------------
@@ -137,6 +171,8 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 .. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
 .. _Tromsø Geophysical Observatory: https://www.tgo.uit.no/
+.. _gif: https://flux.phys.uit.no/Last24/Last24_tro2a.gif
+.. _Savitzky-Golay filter: https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
 .. _Usage: https://northern-lights-forecast.readthedocs.io/en/latest/usage.html
