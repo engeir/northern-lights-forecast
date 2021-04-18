@@ -1,7 +1,9 @@
 """This script finds a white line and plots the line.
-From https://stackoverflow.com/questions/60051941/find-the-coordinates-in-an-image-where-a-specified-colour-is-detected
-"""
 
+From
+https://stackoverflow.com/questions/60051941/find-the-
+coordinates-in-an-image-where-a-specified-colour-is-detected
+"""
 import cv2
 import numpy as np
 from scipy.signal import savgol_filter
@@ -21,8 +23,8 @@ def mean_x(x, y):
     x_ = np.array([])
     y_ = np.array([])
     for i in idx:
-        x_ = np.r_[x_, np.mean(x[x==i])]
-        y_ = np.r_[y_, np.mean(y[x==i])]
+        x_ = np.r_[x_, np.mean(x[x == i])]
+        y_ = np.r_[y_, np.mean(y[x == i])]
     return x_, y_
 
 
@@ -57,27 +59,28 @@ def main(scaling):
         float: the scaling factor
     """
     # Load image
-    im = cv2.imread('assets/new_im.jpg')
+    im = cv2.imread("assets/new_im.jpg")
 
     # Define the blue colour we want to find - remember OpenCV uses BGR ordering
     blue = [255, 255, 255]
 
-    # Get X and Y coordinates of all blue pixels
-    Y, X = np.where(np.all(im == blue, axis=2))
+    # Get x and y coordinates of all blue pixels
+    y_where, x_where = np.where(np.all(im == blue, axis=2))
 
-    x = X[np.argsort(X)]
-    y = Y[np.argsort(X)]
+    x = x_where[np.argsort(x_where)]
+    y = y_where[np.argsort(x_where)]
     # Remove the zero-line
     x, y = remove_line(x, y)
     y = scaling * y
     x_mean, y_mean = mean_x(x, y)
     x_ = np.linspace(np.min(x_mean), np.max(x_mean), 10000)
-    y_i = - np.interp(x_, x_mean, y_mean)
+    y_i = -np.interp(x_, x_mean, y_mean)
     dy = savgol_filter(y_i, 501, 3, deriv=1)
-    dy = dy[int(len(x_) * .8):]
+    dy = dy[int(len(x_) * 0.8) :]
 
     # === < Plot the result > ===
     import matplotlib.pyplot as plt
+
     y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
     # Rescale x-axis to 22-hour plot
     # TODO: find the exact timespan used in the image
@@ -85,19 +88,19 @@ def main(scaling):
     # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
     plt.figure()
     plt.imshow(im)
-    plt.plot(x, y / scaling, 'b')
-    plt.plot(x_, - y_ / scaling, 'r')
+    plt.plot(x, y / scaling, "b")
+    plt.plot(x_, -y_ / scaling, "r")
     # plt.figure()
     # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
     # plt.savefig('after.png', dpi=200)
     # plt.figure()
     # plt.plot(x_, dy, 'r')
-    plt.savefig('assets/plot.pdf', dpi=300, bbox_inches='tight', format='pdf')
+    plt.savefig("assets/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
     # plt.show()
     # === </ Plot the result > ===
 
     return np.min(dy)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     _ = main(3)

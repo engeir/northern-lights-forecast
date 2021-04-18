@@ -1,0 +1,11 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Eirik Rolland Enger",
+  "email": "eirroleng@gmail.com",
+  "friendly_name": "Northern Lights Forecast",
+  "github_user": "engeir",
+  "license": "MIT",
+  "package_name": "northern_lights_forecast",
+  "project_name": "northern-lights-forecast",
+  "version": "0.1.0"
+}
