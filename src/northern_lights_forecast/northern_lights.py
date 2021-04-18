@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """Check the web for signs of northern lights.
 
 This script implements an automated Northern Lights forecast
@@ -25,7 +24,7 @@ from northern_lights_forecast.browser import open_browser
 
 def create_file():
     """Create a user file for sending emails."""
-    with open("user.py", "w") as file:
+    with open("src/northern_lights_forecast/user.py", "w") as file:
         f_e = str(input("Type in the address of the email you want to send from:\t"))
         f_p = str(input("Type in the password of the email you want to send from:\t"))
         t_e = str(input("Type in the address of the email you want to send to:\t"))
@@ -54,11 +53,11 @@ def send_email(txt):
 
 
 try:
-    import user
+    import northern_lights_forecast.user as user
 except Exception:
     create_file()
 finally:
-    import user
+    import northern_lights_forecast.user as user
 
 # Set which method to use.
 # version = 'selenium_scrape'

@@ -5,6 +5,7 @@ https://stackoverflow.com/questions/60051941/find-the-
 coordinates-in-an-image-where-a-specified-colour-is-detected
 """
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import savgol_filter
 
@@ -79,7 +80,7 @@ def main(scaling):
     dy = dy[int(len(x_) * 0.8) :]
 
     # === < Plot the result > ===
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
 
     y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
     # Rescale x-axis to 22-hour plot
@@ -90,6 +91,7 @@ def main(scaling):
     plt.imshow(im)
     plt.plot(x, y / scaling, "b")
     plt.plot(x_, -y_ / scaling, "r")
+
     # plt.figure()
     # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
     # plt.savefig('after.png', dpi=200)

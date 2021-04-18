@@ -33,6 +33,13 @@ Northern Lights Forecast
    :alt: Black
 
 
+Todo
+----
+
+* Move from Cron to schedule
+* Send alerts using something else than email (telegram?)
+* Use user.cfg instead of user.py
+
 Features
 --------
 
@@ -53,6 +60,10 @@ You can install *Northern Lights Forecast* via pip_ from PyPI_:
 .. code:: console
 
    $ pip install northern-lights-forecast
+
+Install tesseract, used with the package pytesseract, via
+
+.. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 
 
 Usage

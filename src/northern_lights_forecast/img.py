@@ -18,13 +18,16 @@ def download():
     Returns:
         cv2 image: the downloaded file as `.jpg`
     """
-    file = "Last24_tro2a.gif"
+    file = "assets/Last24_tro2a.gif"
     if os.path.exists(file):
         os.remove(file)
 
     url = "https://flux.phys.uit.no/Last24/Last24_tro2a.gif"
+    # saveas = "down.gif"
+    # wget.download(url, out="assets/saveas")
     wget.download(url, out="assets/Last24_tro2a.gif")
 
+    # gif = cv2.VideoCapture("assets/saveas")
     gif = cv2.VideoCapture("assets/Last24_tro2a.gif")
     ret, frame = gif.read()
     cv2.imwrite("assets/images.jpg", frame)
@@ -46,27 +49,31 @@ def read(image):
     images = np.hstack([image[360:530, 1:40, :]])
     data = pytesseract.image_to_boxes(images)
 
+    print("")
     d = data.split("\n")
     d = [data for data in d if len(data) > 1]
+    # print(d)
     d = d[::-1]
     # print(d)
     c = 0
+    y_level = 0
     lim_0 = ""
     y_0 = ""
     lim_1 = ""
     y_1 = ""
     for ell in d:
         ell = ell.split()
-        if ell[0] == "-":
+        if ell[0] != "-" and y_level != int(ell[2]):
+            y_level = int(ell[2])
             c += 1
-        else:
-            if c == 0:
+        elif y_level == int(ell[2]):
+            if c == 1:
                 lim_0 += ell[0]
                 y_0 = ell[2]
-            elif c == 1:
+            elif c == 2:
                 lim_1 += ell[0]
                 y_1 = ell[2]
-        if c >= 2:
+        if c >= 3:
             break
     lim_0 = float(lim_0[::-1])
     y_b = float(y_0)
@@ -107,7 +114,7 @@ def read(image):
 
     # print(f'Pixels to nT: {abs(y_t - y_b)} to {abs(lim_1 - lim_0)}')
     # print(f'Increase by {round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2)} times')
-    return round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2)
+    return 1 / round(abs(lim_1 - lim_0) / abs(y_t - y_b), 4)
 
 
 def find_colour(image):

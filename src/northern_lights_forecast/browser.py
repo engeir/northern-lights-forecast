@@ -49,13 +49,31 @@ def navigate(browser):
         dy: float
             The gradient returned by navigate()
     """
+    # # With the requests module
+    # headers = {
+    #     "User-Agent": "Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) \
+    # Gecko/20100101 Firefox/7.0.1"
+    # }
+    # results = requests.get(
+    #     "https://flux.phys.uit.no/cgi-bin/mkascii.cgi?site=tro2a&year=2020&month" +
+    #     "=1&day=1&res=1min&pwd=&format=html&comps=DHZ&RTData=+Get+Realtime+Data+"
+    #     , headers=headers
+    # )
+    # # if check:
+    # print([results.ok])
+    # src = results.content
+    # print(src)
+    # soup = BeautifulSoup(src, "lxml")
+    # txt = soup.find("a", class_="css-1ej4hfo").text.upper()
+
+    # With the selenium module
     browser.get(
         "https://flux.phys.uit.no/cgi-bin/mkascii.cgi?site=tro2a&year=2020&"
         + "month=1&day=1&res=1min&pwd=&format=html&comps=DHZ&RTData=+Get+Realtime+Data+"
     )
     time.sleep(5)
-
     pure = browser.find_element_by_xpath("/html/body/pre")
+
     saved = pure.text.splitlines()
     for v, ss in enumerate(saved):
         saved[v] = ss.split()
@@ -73,3 +91,7 @@ def navigate(browser):
     dy = np.gradient(y)
 
     return np.min(dy)
+
+
+if __name__ == "__main__":
+    open_browser(hide=False)
