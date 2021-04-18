@@ -61,9 +61,7 @@ You can install *Northern Lights Forecast* via pip_ from PyPI_:
 
    $ pip install northern-lights-forecast
 
-Install tesseract, used with the package pytesseract, via
-
-.. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
+Install tesseract_, used with the package pytesseract.
 
 
 Usage
@@ -105,6 +103,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 .. _file an issue: https://github.com/engeir/northern-lights-forecast/issues
 .. _pip: https://pip.pypa.io/
+.. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
 .. _Usage: https://northern-lights-forecast.readthedocs.io/en/latest/usage.html
