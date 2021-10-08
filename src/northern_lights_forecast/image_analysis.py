@@ -1,4 +1,4 @@
-"""This script finds a white line and plots the line.
+"""Find a white line and plot the line.
 
 From
 https://stackoverflow.com/questions/60051941/find-the-
@@ -13,12 +13,17 @@ from scipy.signal import savgol_filter
 def mean_x(x, y):
     """Compute the mean value along all identical x values.
 
-    Args:
-        x (np.ndarray): x coordinates
-        y (np.ndarray): y coordinates
+    Parameters
+    ----------
+    x: np.ndarray
+        x coordinates
+    y: np.ndarray
+        y coordinates
 
-    Returns:
-        np.ndarray: the new x and y arrays
+    Returns
+    -------
+    np.ndarray:
+        The new x and y arrays
     """
     idx = np.unique(x)
     x_ = np.array([])
@@ -32,12 +37,17 @@ def mean_x(x, y):
 def remove_line(x, y):
     """Remove the horizontal zero-line.
 
-    Args:
-        x (np.ndarray): x coordinates
-        y (np.ndarray): y coordinates
+    Parameters
+    ----------
+    x: np.ndarray
+        x coordinates
+    y: np.ndarray
+        y coordinates
 
-    Returns:
-        np.ndarray: the new x and y arrays
+    Returns
+    -------
+    np.ndarray
+        The new x and y arrays
     """
     (values, counts) = np.unique(y, return_counts=True)
     values = values[np.argsort(counts)]
@@ -50,14 +60,18 @@ def remove_line(x, y):
     return x, y
 
 
-def main(scaling):
-    """Find the continuous line from a plot in `new_im.jpg`.
+def grab_blue_line(scaling):
+    """Find the continuous line from a plot in 'new_im.jpg'.
 
-    Args:
-        scaling (float): how y axis scale to number of pixels
+    Parameters
+    ----------
+    scaling: float
+        How 'y' axis scale to number of pixels
 
-    Returns:
-        float: the scaling factor
+    Returns
+    -------
+    float
+        The scaling factor
     """
     # Load image
     im = cv2.imread("assets/new_im.jpg")
@@ -105,4 +119,4 @@ def main(scaling):
 
 
 if __name__ == "__main__":
-    _ = main(3)
+    _ = grab_blue_line(3)

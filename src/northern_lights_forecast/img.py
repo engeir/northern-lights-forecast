@@ -8,11 +8,29 @@ import os
 
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 import pytesseract
 import wget
-import scipy.ndimage
-from skimage import feature
+
+# import matplotlib.pyplot as plt
+
+PLACE = {
+    "Ny-Ålesund": "nal1a",
+    "Tromsø": "tro2a",
+    "Longyearbyen": "lyr2a",
+    "Hopen": "hop1a",
+    "Bjørnøya": "bjn1a",
+    "Jan Mayen": "jan1a",
+    "Nordkapp": "nor1a",
+    "Andenes": "and1a",
+    "Røst": "rst1a",
+    "Jackvik": "jck1a",
+    "Dønna": "don1a",
+    "Rørvik": "rvk1a",
+    "Dombås": "dob1a",
+    "Solund": "sol1a",
+    "Harestua": "har1a",
+    "Karmøy": "kar1a",
+}
 
 
 def download() -> np.ndarray:
@@ -54,29 +72,26 @@ def read(image):
     float
         scaling factor of y axis to pixels
     """
-    # # <VERSION 1>
     print("")
+    # Cut out the scale on the y-axis
     images = np.hstack([image[360:530, 1:55, :]])
+    # Pick the grey scale
     images = images[:, :, 0]
-    treshold = 150
-    images[images < treshold] = 0
-    images[images >= treshold] = 255
-    # plt.imshow(images, cmap="gray")
-    # plt.show()
-    # images = feature.canny(images)
-    # img_sobel = scipy.ndimage.filters.sobel(images)
-    # # plt.imshow(img_sobel)
-    # plt.imshow(images, cmap="gray")
-    # plt.show()
-    data = pytesseract.image_to_boxes(images, lang='eng', config='--psm 6 digits --oem 3 -c tessedit_char_whitelist=0123456789')
-    # numbs = pytesseract.image_to_string(images, config='--psm 6 digits')
-    numbs = pytesseract.image_to_string(images, lang='eng', config='--psm 6 digits --oem 3 -c tessedit_char_whitelist=0123456789')
-    
+    # Make it clearer, b/w, with threshold
+    threshold = 150
+    images[images < threshold] = 0
+    images[images >= threshold] = 255
+    # Read digits in image with tesseract
+    data = pytesseract.image_to_boxes(
+        images,
+        lang="eng",
+        config="--psm 6 digits --oem 3 -c tessedit_char_whitelist=0123456789",
+    )
+
+    # Extract scales from strings
     d = data.split("\n")
     d = [data for data in d if len(data) > 1]
-    # print(d)
-    d = d[::-1]
-    # print(d)
+    d = d[::-1]  # Reverse
     c = 0
     y_level = 0
     lim_0 = ""
@@ -108,41 +123,8 @@ def read(image):
     y_b = float(y_0)
     lim_1 = float(lim_1[::-1])
     y_t = float(y_1)
-    # print(lim_0, lim_1, y_b, y_t)
-    # print(round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2))
-    # import matplotlib.pyplot as plt
-    # plt.figure()
-    # plt.imshow(images)
-    # plt.show()
-    # # </VERSION 1>
-
-    # # </VERSION 2>
-    # x_0, x_1 = 1, 40
-    # y_t0, y_t1 = 360, 390
-    # y_b0, y_b1 = 455, 485
-    # y_t, y_b = 380, 475
-    # txt_img0 = np.hstack([image[y_t0:y_t1, x_0:x_1, :]])
-    # txt_img1 = np.hstack([image[y_b0:y_b1, x_0:x_1, :]])
-    # # Uncomment block below to verify the text is completely inside the images.
-    # # # === < View y axis text > ===
-    # # import matplotlib.pyplot as plt
-    # # plt.figure()
-    # # plt.imshow(txt_img0)
-    # # plt.figure()
-    # # plt.imshow(txt_img1)
-    # # plt.show()
-    # # exit()
-    # # # === </ View y axis text > ===
-    # # By default OpenCV stores images in BGR format and since pytesseract
-    # # assumes RGB format, we need to convert from BGR to RGB format/mode:
-    # img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
-    # img_rgb1 = cv2.cvtColor(txt_img1, cv2.COLOR_BGR2RGB)
-    # lim_0 = float(pytesseract.image_to_string(img_rgb0))
-    # lim_1 = float(pytesseract.image_to_string(img_rgb1))
-    # # </VERSION 2>
-
-    # print(f'Pixels to nT: {abs(y_t - y_b)} to {abs(lim_1 - lim_0)}')
-    # print(f'Increase by {round(abs(lim_1 - lim_0) / abs(y_t - y_b), 2)} times')
+    # Calculate the scale along the y-axis using the values and their position in the
+    # image
     return 1 / round(abs(lim_1 - lim_0) / abs(y_t - y_b), 4)
 
 
@@ -162,12 +144,11 @@ def find_colour(image):
         # ([103, 86, 65], [145, 133, 128])  # grey
     ]
 
-    # Loop over the boundaries
-    # for (lower, upper) in boundaries:
+    # Loop over the boundaries for (lower, upper) in boundaries:
     lower, upper = boundaries[0]
     lower = np.array(lower, dtype="uint8")
     upper = np.array(upper, dtype="uint8")
-    # Find the colors within the specified boundaries and apply
+    # Find the colours within the specified boundaries and apply
     mask = cv2.inRange(image, lower, upper)
     output = cv2.bitwise_and(image, image, mask=mask)
     # Set the masked pixels to white

@@ -6,16 +6,18 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
 
-def open_browser(hide=True):
+def open_browser(hide: bool = True):
     """Handle open of browser with a try statement in case of failure.
 
-    Args:
-        hide: bool (optional)
-            Toggle headless browser, True give headless.
+    Parameters
+    ----------
+    hide: bool
+        Toggle headless browser, True give headless.
 
-    Returns:
-        dy: float
-            The gradient returned by navigate()
+    Returns
+    -------
+    dy: float
+        The gradient returned by navigate()
     """
     try:
         if hide:
@@ -35,19 +37,21 @@ def open_browser(hide=True):
     return dy
 
 
-def navigate(browser):
+def navigate(browser) -> float:
     """Navigate the TGO website.
 
-    Get the contents of the magnetometer data an analyze for a large,
+    Get the contents of the magnetometer data an analyse for a large,
     negative gradient.
 
-    Args:
-        browser: selenium.webdriver
-            A webdriver object, e.g. selenium.webdriver.Firefox()
+    Parameters
+    ----------
+    browser: selenium.webdriver
+        A webdriver object, e.g. selenium.webdriver.Firefox()
 
-    Returns:
-        dy: float
-            The gradient returned by navigate()
+    Returns
+    -------
+    float
+        The gradient returned by navigate()
     """
     # # With the requests module
     # headers = {

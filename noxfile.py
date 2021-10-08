@@ -10,7 +10,7 @@ from nox_poetry import session
 
 
 package = "northern_lights_forecast"
-python_versions = ["3.9", "3.8", "3.7", "3.6"]
+python_versions = ["3.9", "3.8", "3.7"]
 nox.options.sessions = (
     "pre-commit",
     "safety",
@@ -29,8 +29,10 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
     session's virtual environment. This allows pre-commit to locate hooks in
     that environment when invoked from git.
 
-    Args:
-        session: The Session object.
+    Parameters
+    ----------
+    session: Session
+        The Session object.
     """
     if session.bin is None:
         return
