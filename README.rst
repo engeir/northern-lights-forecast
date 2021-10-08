@@ -37,6 +37,7 @@ Todo
 ----
 
 * Send alerts using something else than email (telegram?)
+  Follow: https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
 * Use user.cfg instead of user.py
 
 Features
