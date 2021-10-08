@@ -36,7 +36,6 @@ Northern Lights Forecast
 Todo
 ----
 
-* Move from Cron to schedule
 * Send alerts using something else than email (telegram?)
 * Use user.cfg instead of user.py
 

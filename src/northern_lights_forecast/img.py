@@ -1,4 +1,4 @@
-"""Sort out colors from an image.
+"""Sort out colours from an image.
 
 This script finds all pixels with colour within a range a colours, while all
 other is coloured black. From
@@ -8,15 +8,20 @@ import os
 
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 import pytesseract
 import wget
+import scipy.ndimage
+from skimage import feature
 
 
-def download():
+def download() -> np.ndarray:
     """Download a `.gif` file, save and return as `.jpg`.
 
-    Returns:
-        cv2 image: the downloaded file as `.jpg`
+    Returns
+    -------
+    np.ndarray:
+        the downloaded file as `.jpg`
     """
     file = "assets/Last24_tro2a.gif"
     if os.path.exists(file):
@@ -39,17 +44,34 @@ def download():
 def read(image):
     """Read the scaling of the axis of the downloaded file. See `download()`.
 
-    Args:
-        image (cv2 image): the input file
+    Parameters
+    ----------
+    image: cv2 image
+        The input file
 
-    Returns:
-        float: scaling factor of y axis to pixels
+    Returns
+    -------
+    float
+        scaling factor of y axis to pixels
     """
     # # <VERSION 1>
-    images = np.hstack([image[360:530, 1:40, :]])
-    data = pytesseract.image_to_boxes(images)
-
     print("")
+    images = np.hstack([image[360:530, 1:55, :]])
+    images = images[:, :, 0]
+    treshold = 150
+    images[images < treshold] = 0
+    images[images >= treshold] = 255
+    # plt.imshow(images, cmap="gray")
+    # plt.show()
+    # images = feature.canny(images)
+    # img_sobel = scipy.ndimage.filters.sobel(images)
+    # # plt.imshow(img_sobel)
+    # plt.imshow(images, cmap="gray")
+    # plt.show()
+    data = pytesseract.image_to_boxes(images, lang='eng', config='--psm 6 digits --oem 3 -c tessedit_char_whitelist=0123456789')
+    # numbs = pytesseract.image_to_string(images, config='--psm 6 digits')
+    numbs = pytesseract.image_to_string(images, lang='eng', config='--psm 6 digits --oem 3 -c tessedit_char_whitelist=0123456789')
+    
     d = data.split("\n")
     d = [data for data in d if len(data) > 1]
     # print(d)
@@ -63,9 +85,16 @@ def read(image):
     y_1 = ""
     for ell in d:
         ell = ell.split()
-        if ell[0] != "-" and y_level != int(ell[2]):
+        # if ell[0] != "-" and y_level != int(ell[2]):
+        if y_level != int(ell[2]):
             y_level = int(ell[2])
             c += 1
+            if c == 1:
+                lim_0 += ell[0]
+                y_0 = ell[2]
+            elif c == 2:
+                lim_1 += ell[0]
+                y_1 = ell[2]
         elif y_level == int(ell[2]):
             if c == 1:
                 lim_0 += ell[0]
@@ -106,7 +135,7 @@ def read(image):
     # # # === </ View y axis text > ===
     # # By default OpenCV stores images in BGR format and since pytesseract
     # # assumes RGB format, we need to convert from BGR to RGB format/mode:
-    # # img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
+    # img_rgb0 = cv2.cvtColor(txt_img0, cv2.COLOR_BGR2RGB)
     # img_rgb1 = cv2.cvtColor(txt_img1, cv2.COLOR_BGR2RGB)
     # lim_0 = float(pytesseract.image_to_string(img_rgb0))
     # lim_1 = float(pytesseract.image_to_string(img_rgb1))
@@ -120,8 +149,10 @@ def read(image):
 def find_colour(image):
     """Find the pixels in an image with colour within a given range.
 
-    Args:
-        image (cv2 image): the input file
+    Parameters
+    ----------
+    image: cv2 image
+        The input file
     """
     # Define the list of boundaries
     boundaries = [
@@ -156,11 +187,12 @@ def find_colour(image):
 
 
 def main():
-    """Analyze image for a color and return the scaling of the plot axis in the image.
+    """Analyse image for a colour and return the scaling of the plot axis in the image.
 
-    Returns:
-        scaling: float
-            The scaling to make pixels and value axis in plot equal.
+    Returns
+    -------
+    scaling: float
+        The scaling to make pixels and value axis in plot equal.
     """
     # Download image
     image = download()
