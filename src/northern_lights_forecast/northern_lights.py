@@ -20,6 +20,11 @@ import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
 
 
+def telegram_test() -> None:
+    """Test to see if you are able to send with telegram."""
+    telegram_send.send(messages=["Test"])
+
+
 def nlf(location: str) -> None:
     """Run the Northern Lights Forecast."""
     scaling = img.img_analysis(location)

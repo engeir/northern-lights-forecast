@@ -24,8 +24,18 @@ from . import __version__
     show_default=True,
     help="List out available magnetometer locations.",
 )
-def main(location: str, locations: bool) -> None:
+@click.option(
+    "--test/--no-test",
+    type=bool,
+    default=False,
+    show_default=True,
+    help="Test sending message to telegram.",
+)
+def main(location: str, locations: bool, test: bool) -> None:
     """Northern Lights Forecast."""
+    if test:
+        nl.telegram_test()
+        return
     if locations:
         for loc in img.__PLACE__.keys():
             print(loc)
