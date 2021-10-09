@@ -1,25 +1,46 @@
 """Nox sessions."""
+import os
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 from textwrap import dedent
+from typing import Any
 
 import nox
 from nox_poetry import Session
 from nox_poetry import session
-
 
 package = "northern_lights_forecast"
 python_versions = ["3.9", "3.8", "3.7"]
 nox.options.sessions = (
     "pre-commit",
     "safety",
-    "mypy",
+    # "mypy",
     "tests",
     "typeguard",
     "xdoctest",
     "docs-build",
 )
+
+
+def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
+    """Install packages constrained by Poetry's lock file."""
+    requirements = tempfile.NamedTemporaryFile(delete=False)
+
+    session.run(
+        "poetry",
+        "export",
+        "--dev",
+        "--format=requirements.txt",
+        "--without-hashes",
+        f"--output={requirements.name}",
+        external=True,
+    )
+    session.install(f"--constraint={requirements.name}", *args, **kwargs)
+
+    requirements.close()
+    os.unlink(requirements.name)
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -109,8 +130,9 @@ def safety(session: Session) -> None:
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests", "docs/conf.py"]
-    session.install(".")
-    session.install("mypy", "pytest")
+    install_with_constraints(session, "mypy")
+    # session.install(".")
+    # session.install("mypy", "pytest")
     session.run("mypy", *args)
     if not session.posargs:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
