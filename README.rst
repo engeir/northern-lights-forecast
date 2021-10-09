@@ -1,7 +1,7 @@
 Northern Lights Forecast
 ========================
 
-|PyPI| |Python Version| |License|
+|Python Version| |License|
 
 |Read the Docs| |Tests| |Codecov|
 
