@@ -21,7 +21,7 @@ import northern_lights_forecast.img as img
 from northern_lights_forecast.browser import open_browser
 
 
-def main():
+def nlf(location):
     """Run the Northern Lights Forecast."""
     # Set which method to use.
     # version = "selenium_scrape"
@@ -36,7 +36,7 @@ def main():
             )
             telegram_send.send(messages=[txt])
     elif version == "img_analysis":
-        scaling = img.main()
+        scaling = img.img_analysis(location)
         dy = ima.grab_blue_line(scaling)
         print(dy)
         if dy < -2:
@@ -45,6 +45,11 @@ def main():
                 + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
             )
             telegram_send.send(messages=[txt])
+
+
+def main():
+    """Run 'northern_lights.py'."""
+    nlf("Tromsø")
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ import wget
 
 # import matplotlib.pyplot as plt
 
-PLACE = {
+__PLACE__ = {
     "Ny-Ålesund": "nal1a",
     "Tromsø": "tro2a",
     "Longyearbyen": "lyr2a",
@@ -30,31 +30,53 @@ PLACE = {
     "Solund": "sol1a",
     "Harestua": "har1a",
     "Karmøy": "kar1a",
+    "Brorfelde": "bfe6d",
+    "Rømø": "reo1d",
+    "Hov": "hov1d",
+    "Savissivik": "svs1d",
+    "Kullorsuaq": "kuv1d",
+    "Upernavik": "upn1d",
+    "Summit": "sum1d",
+    "Uummannaq": "umq1d",
+    "Attu": "atu1d",
+    "Kangerlussuaq/Sendre Stromfjord": "stf1d",
+    "Nuuk/Godthåp": "ghb1d",
+    "Paamiut/Frederikshåp": "fhb1d",
+    "Narsarsuaq": "naq4d",
+    "Danmarkshavn": "dmh1d",
+    "Ammassalik": "amk1f",
 }
 
 
-def download() -> np.ndarray:
+def download(location: str) -> np.ndarray:
     """Download a `.gif` file, save and return as `.jpg`.
+
+    Parameters
+    ----------
+    location: str
+        Geographical location of magnetometer generating the file to download
 
     Returns
     -------
     np.ndarray:
         the downloaded file as `.jpg`
     """
-    file = "assets/Last24_tro2a.gif"
+    loc = __PLACE__[location]
+    d = "out"
+    file = f"{d}/Last24_{loc}.gif"
     if os.path.exists(file):
         os.remove(file)
+    if not os.path.isdir(d):
+        os.makedirs(d)
 
-    url = "https://flux.phys.uit.no/Last24/Last24_tro2a.gif"
+    url = f"https://flux.phys.uit.no/Last24/Last24_{loc}.gif"
     # saveas = "down.gif"
-    # wget.download(url, out="assets/saveas")
-    wget.download(url, out="assets/Last24_tro2a.gif")
+    wget.download(url, out=f"{d}/Last24_{loc}.gif")
 
-    # gif = cv2.VideoCapture("assets/saveas")
-    gif = cv2.VideoCapture("assets/Last24_tro2a.gif")
+    gif = cv2.VideoCapture(f"{d}/Last24_{loc}.gif")
     ret, frame = gif.read()
-    cv2.imwrite("assets/images.jpg", frame)
-    image = cv2.imread("assets/images.jpg")
+    cv2.imwrite(f"{d}/images.jpg", frame)
+    image = cv2.imread(f"{d}/images.jpg")
 
     return image
 
@@ -164,11 +186,16 @@ def find_colour(image):
     # # plt.show()
     # # === </ Show figures > ===
     # Save the black/white image of the blue structures
-    cv2.imwrite("assets/new_im.jpg", np.hstack([output]))
+    cv2.imwrite("out/new_im.jpg", np.hstack([output]))
 
 
-def main():
+def img_analysis(location: str):
     """Analyse image for a colour and return the scaling of the plot axis in the image.
+
+    Parameters
+    ----------
+    location: str
+        Geographical location of magnetometer creating the image.
 
     Returns
     -------
@@ -176,7 +203,7 @@ def main():
         The scaling to make pixels and value axis in plot equal.
     """
     # Download image
-    image = download()
+    image = download(location)
     scaling = read(image)
     # Crop image
     y_h = int(image.shape[0] * 0.4)
@@ -188,6 +215,11 @@ def main():
     find_colour(image)
 
     return scaling
+
+
+def main():
+    """Run 'img.py'."""
+    img_analysis("Tromsø")
 
 
 if __name__ == "__main__":

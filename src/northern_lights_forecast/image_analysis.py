@@ -74,7 +74,7 @@ def grab_blue_line(scaling):
         The scaling factor
     """
     # Load image
-    im = cv2.imread("assets/new_im.jpg")
+    im = cv2.imread("out/new_im.jpg")
 
     # Define the blue colour we want to find - remember OpenCV uses BGR ordering
     blue = [255, 255, 255]
@@ -111,7 +111,7 @@ def grab_blue_line(scaling):
     # plt.savefig('after.png', dpi=200)
     # plt.figure()
     # plt.plot(x_, dy, 'r')
-    plt.savefig("assets/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
+    plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
     # plt.show()
     # === </ Plot the result > ===
 
