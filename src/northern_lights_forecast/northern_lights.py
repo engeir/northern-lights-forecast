@@ -20,7 +20,7 @@ import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
 
 
-def nlf(location):
+def nlf(location: str) -> None:
     """Run the Northern Lights Forecast."""
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)

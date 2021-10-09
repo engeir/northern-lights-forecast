@@ -7,9 +7,9 @@ Northern Lights Forecast
 
 |pre-commit| |Black|
 
-.. |PyPI| image:: https://img.shields.io/pypi/v/northern-lights-forecast.svg
-   :target: https://pypi.org/project/northern-lights-forecast/
-   :alt: PyPI
+.. .. |PyPI| image:: https://img.shields.io/pypi/v/northern-lights-forecast.svg
+..    :target: https://pypi.org/project/northern-lights-forecast/
+..    :alt: PyPI
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/northern-lights-forecast
    :target: https://pypi.org/project/northern-lights-forecast
    :alt: Python Version
@@ -32,10 +32,6 @@ Northern Lights Forecast
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: Black
-
-
-* Send alerts using something else than email (telegram?)
-  Follow:
 
 Features
 --------

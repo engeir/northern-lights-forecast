@@ -24,7 +24,7 @@ from . import __version__
     show_default=True,
     help="List out available magnetometer locations.",
 )
-def main(location, locations) -> None:
+def main(location: str, locations: bool) -> None:
     """Northern Lights Forecast."""
     if locations:
         for loc in img.__PLACE__.keys():

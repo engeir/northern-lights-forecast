@@ -81,12 +81,12 @@ def download(location: str) -> np.ndarray:
     return image
 
 
-def read(image):
+def read(image: np.ndarray):
     """Read the scaling of the axis of the downloaded file. See `download()`.
 
     Parameters
     ----------
-    image: cv2 image
+    image: np.ndarray
         The input file
 
     Returns
@@ -150,12 +150,12 @@ def read(image):
     return 1 / round(abs(lim_1 - lim_0) / abs(y_t - y_b), 4)
 
 
-def find_colour(image):
+def find_colour(image: np.ndarray) -> None:
     """Find the pixels in an image with colour within a given range.
 
     Parameters
     ----------
-    image: cv2 image
+    image: np.ndarray
         The input file
     """
     # Define the list of boundaries
@@ -189,7 +189,7 @@ def find_colour(image):
     cv2.imwrite("out/new_im.jpg", np.hstack([output]))
 
 
-def img_analysis(location: str):
+def img_analysis(location: str) -> float:
     """Analyse image for a colour and return the scaling of the plot axis in the image.
 
     Parameters
@@ -199,7 +199,7 @@ def img_analysis(location: str):
 
     Returns
     -------
-    scaling: float
+    float:
         The scaling to make pixels and value axis in plot equal.
     """
     # Download image

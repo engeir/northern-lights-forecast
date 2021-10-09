@@ -10,7 +10,7 @@ import numpy as np
 from scipy.signal import savgol_filter
 
 
-def mean_x(x, y):
+def mean_x(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Compute the mean value along all identical x values.
 
     Parameters
@@ -22,7 +22,7 @@ def mean_x(x, y):
 
     Returns
     -------
-    np.ndarray:
+    tuple[np.ndarray, np.ndarray]
         The new x and y arrays
     """
     idx = np.unique(x)
@@ -34,7 +34,7 @@ def mean_x(x, y):
     return x_, y_
 
 
-def remove_line(x, y):
+def remove_line(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Remove the horizontal zero-line.
 
     Parameters
@@ -46,7 +46,7 @@ def remove_line(x, y):
 
     Returns
     -------
-    np.ndarray
+    tuple[np.ndarray, np.ndarray]:
         The new x and y arrays
     """
     (values, counts) = np.unique(y, return_counts=True)
@@ -60,7 +60,7 @@ def remove_line(x, y):
     return x, y
 
 
-def grab_blue_line(scaling):
+def grab_blue_line(scaling: float) -> float:
     """Find the continuous line from a plot in 'new_im.jpg'.
 
     Parameters
