@@ -1,18 +1,16 @@
 Northern Lights Forecast
 ========================
 
-|Python Version| |License|
+|License| |Read the Docs| |Tests|
 
-|Read the Docs| |Tests| |Codecov|
-
-|pre-commit| |Black|
+|Codecov| |pre-commit| |Black|
 
 .. .. |PyPI| image:: https://img.shields.io/pypi/v/northern-lights-forecast.svg
 ..    :target: https://pypi.org/project/northern-lights-forecast/
 ..    :alt: PyPI
-.. |Python Version| image:: https://img.shields.io/pypi/pyversions/northern-lights-forecast
-   :target: https://pypi.org/project/northern-lights-forecast
-   :alt: Python Version
+.. .. |Python Version| image:: https://img.shields.io/pypi/pyversions/northern-lights-forecast
+..    :target: https://pypi.org/project/northern-lights-forecast
+..    :alt: Python Version
 .. https://img.shields.io/pypi/l/northern-lights-forecast
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue
    :target: https://opensource.org/licenses/MIT
