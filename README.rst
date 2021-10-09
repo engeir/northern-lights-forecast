@@ -61,7 +61,8 @@ Installation
 * Set up a virtual environment and activate. (Use whatever, for example poetry:
   :code:`poetry shell`)
 * Now we are ready to install the project; run :code:`poetry install` in the root of the
-  project
+  project. :code:`pillow` is a bit picky, and might have to be installed directly with
+  pip: :code:`pip install pillow`. And :code:`pip install scipy`.
 * Set up a cron job: :code:`sh crontab.sh`.
 
 Usage
