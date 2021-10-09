@@ -33,7 +33,7 @@ def nlf(location: str) -> None:
         telegram_send.send(messages=[txt])
 
 
-def main():
+def main() -> None:
     """Run 'northern_lights.py'."""
     nlf("Tromsø")
 

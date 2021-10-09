@@ -81,7 +81,7 @@ def download(location: str) -> np.ndarray:
     return image
 
 
-def read(image: np.ndarray):
+def read(image: np.ndarray) -> float:
     """Read the scaling of the axis of the downloaded file. See `download()`.
 
     Parameters
@@ -141,13 +141,13 @@ def read(image: np.ndarray):
                 y_1 = ell[2]
         if c >= 3:
             break
-    lim_0 = float(lim_0[::-1])
+    lim_b = float(lim_0[::-1])
     y_b = float(y_0)
-    lim_1 = float(lim_1[::-1])
+    lim_t = float(lim_1[::-1])
     y_t = float(y_1)
     # Calculate the scale along the y-axis using the values and their position in the
     # image
-    return 1 / round(abs(lim_1 - lim_0) / abs(y_t - y_b), 4)
+    return 1 / round(abs(lim_t - lim_b) / abs(y_t - y_b), 4)
 
 
 def find_colour(image: np.ndarray) -> None:
@@ -217,7 +217,7 @@ def img_analysis(location: str) -> float:
     return scaling
 
 
-def main():
+def main() -> None:
     """Run 'img.py'."""
     img_analysis("Tromsø")
 

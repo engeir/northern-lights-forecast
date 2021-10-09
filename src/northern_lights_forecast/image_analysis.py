@@ -4,13 +4,15 @@ From
 https://stackoverflow.com/questions/60051941/find-the-
 coordinates-in-an-image-where-a-specified-colour-is-detected
 """
+from typing import Tuple
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import savgol_filter
 
 
-def mean_x(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def mean_x(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """Compute the mean value along all identical x values.
 
     Parameters
@@ -22,7 +24,7 @@ def mean_x(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
     Returns
     -------
-    tuple[np.ndarray, np.ndarray]
+    tuple:
         The new x and y arrays
     """
     idx = np.unique(x)
@@ -34,7 +36,7 @@ def mean_x(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return x_, y_
 
 
-def remove_line(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def remove_line(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """Remove the horizontal zero-line.
 
     Parameters
@@ -46,7 +48,7 @@ def remove_line(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
     Returns
     -------
-    tuple[np.ndarray, np.ndarray]:
+    tuple:
         The new x and y arrays
     """
     (values, counts) = np.unique(y, return_counts=True)
@@ -115,7 +117,7 @@ def grab_blue_line(scaling: float) -> float:
     # plt.show()
     # === </ Plot the result > ===
 
-    return np.min(dy)
+    return float(np.min(dy))
 
 
 if __name__ == "__main__":
