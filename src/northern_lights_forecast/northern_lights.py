@@ -20,25 +20,32 @@ import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
 from northern_lights_forecast.browser import open_browser
 
-# Set which method to use.
-# version = "selenium_scrape"
-version = "img_analysis"
 
-if version == "selenium_scrape":
-    dy = open_browser(hide=True)
-    if dy < -10:
-        txt = (
-            f"Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
-        )
-        telegram_send.send(messages=[txt])
-elif version == "img_analysis":
-    scaling = img.main()
-    dy = ima.grab_blue_line(scaling)
-    print(dy)
-    if dy < -2:
-        txt = (
-            f"Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
-        )
-        telegram_send.send(messages=[txt])
+def main():
+    """Run the Northern Lights Forecast."""
+    # Set which method to use.
+    # version = "selenium_scrape"
+    version = "img_analysis"
+
+    if version == "selenium_scrape":
+        dy = open_browser(hide=True)
+        if dy < -10:
+            txt = (
+                f"Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\n"
+                + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+            )
+            telegram_send.send(messages=[txt])
+    elif version == "img_analysis":
+        scaling = img.main()
+        dy = ima.grab_blue_line(scaling)
+        print(dy)
+        if dy < -2:
+            txt = (
+                f"Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\n"
+                + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+            )
+            telegram_send.send(messages=[txt])
+
+
+if __name__ == "__main__":
+    main()

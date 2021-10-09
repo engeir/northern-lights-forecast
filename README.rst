@@ -33,88 +33,77 @@ Northern Lights Forecast
    :alt: Black
 
 
-Todo
-----
-
 * Send alerts using something else than email (telegram?)
-  Follow: https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
-* Use user.cfg instead of user.py
+  Follow:
 
 Features
 --------
 
-* TODO
-
+Get notified whenever there are good chances of seeing northern lights! Follow
+`@NorthernLightsForecastBot` on telegram for updates on the Tromsø magnetometer, or set up
+your own telegram bot with this project. Setting up a telegram bot is easy as pie, just
+follow `this guide`_.
 
 Requirements
 ------------
 
-* TODO
-
+The project uses `tesseract` to read off the scale on the magnetogram plots. See
+installation instructions below.
 
 Installation
 ------------
 
-You can install *Northern Lights Forecast* via pip_ from PyPI_:
+.. You can install *Northern Lights Forecast* via pip_ from PyPI_:
 
-.. code:: console
+.. .. code:: console
 
-   $ pip install northern-lights-forecast
+..    $ pip install northern-lights-forecast
 
-Install tesseract_, used with the package pytesseract.
+* Clone: `git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf`
+* Install tesseract_, used with the package pytesseract.
+* The get yourself a telegram bot using `this guide`_.
+* Set up a virtual environment and activate. (Use whatever, for example poetry: `poetry
+  shell`)
+* Now we are ready to install the project; run `poetry install` in the root of the project
+* Set up a cron job: `sh crontab.sh`.
 
 Usage
 -----
 
 Please see the `Command-line Reference <Usage_>`_ for details.
 
-Run the script once to input an email address to send from, including password,
-and the email you want to receive the notification. Alternatively, create a
-file called `user.py` and paste in
-
-.. code:: console
-
-    FROM_EMAIL = "from_email@gmail.com"
-    FROM_PASSWORD = "password"
-    TO_EMAIL = "to_email@gmail.com"
-
-with the correct email addresses and password.
-
-To be able to receive email notification, an email that the script can send
-from must be added. See RealPython_'s description to get started.
-
 How?
 ----
 
-The script implements an automated Northern Lights forecast by taking advantage
-of the web site of `Tromsø Geophysical Observatory`_ (TGO).
+The script implements an automated Northern Lights forecast by taking advantage of the web
+site of `Tromsø Geophysical Observatory`_ (TGO).
 
 Image analysis
 ^^^^^^^^^^^^^^
 
 The script will try to download a :code:`.gif` file with plots of the components of a
-magnetometer. One component is all that is needed (blue line) and the script
-will then locate the blue pixels and fit a graph to the pixel locations with a
-`Savitzky-Golay filter`_.
+magnetometer. One component is all that is needed (blue line) and the script will then
+locate the blue pixels and fit a graph to the pixel locations with a `Savitzky-Golay
+filter`_.
 
-Below is an example with the original image above the new reverse engeneered graph.
+Below is an example with the original image above the new reverse engineered graph.
 
 .. image:: assets/before.jpg
 
 .. image:: assets/after.png
 
-At a given threshold of the derivative of the X component of a magnetometer in
-Tromsø, an email is sent to let the user know of the current substorm event.
+At a given threshold of the derivative of the X component of a magnetometer in Tromsø, a
+notification is sent to a telegram bot to let the user know of the current substorm event.
 
 Cron
 ----
 
-The script can be run every hour from 18:00 through 04:00 during the months
-September through March, using cron to automate the task. Run
+The script can be run every hour from 18:00 through 04:00 during the months September
+through March, using cron to automate the task. Run
 
 .. code:: console
 
-    bash crontab.sh <username>
+    bash crontab.sh
 
 to set this up, or edit the cron script manually with
 
@@ -171,6 +160,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _tesseract: https://tesseract-ocr.github.io/tessdoc/Compiling-%E2%80%93-GitInstallation.html
 .. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
 .. _Tromsø Geophysical Observatory: https://www.tgo.uit.no/
+.. _this guide: https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
 .. _Savitzky-Golay filter: https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
