@@ -13,7 +13,8 @@ Northern Lights Forecast
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/northern-lights-forecast
    :target: https://pypi.org/project/northern-lights-forecast
    :alt: Python Version
-.. |License| image:: https://img.shields.io/pypi/l/northern-lights-forecast
+.. https://img.shields.io/pypi/l/northern-lights-forecast
+.. |License| image:: https://img.shields.io/badge/license-MIT-blue
    :target: https://opensource.org/licenses/MIT
    :alt: License
 .. |Read the Docs| image:: https://img.shields.io/readthedocs/northern-lights-forecast/latest.svg?label=Read%20the%20Docs
@@ -40,9 +41,9 @@ Features
 --------
 
 Get notified whenever there are good chances of seeing northern lights! Follow
-`@NorthernLightsForecastBot` on telegram for updates on the Tromsø magnetometer, or set up
-your own telegram bot with this project. Setting up a telegram bot is easy as pie, just
-follow `this guide`_.
+:code:`@NorthernLightsForecastBot` on telegram for updates on the Tromsø magnetometer, or
+set up your own telegram bot with this project. Setting up a telegram bot is easy as pie,
+just follow `this guide`_.
 
 Requirements
 ------------
@@ -59,13 +60,15 @@ Installation
 
 ..    $ pip install northern-lights-forecast
 
-* Clone: `git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf`
+* Clone: :code:`git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd
+  nlf`
 * Install tesseract_, used with the package pytesseract.
 * The get yourself a telegram bot using `this guide`_.
-* Set up a virtual environment and activate. (Use whatever, for example poetry: `poetry
-  shell`)
-* Now we are ready to install the project; run `poetry install` in the root of the project
-* Set up a cron job: `sh crontab.sh`.
+* Set up a virtual environment and activate. (Use whatever, for example poetry:
+  :code:`poetry shell`)
+* Now we are ready to install the project; run :code:`poetry install` in the root of the
+  project
+* Set up a cron job: :code:`sh crontab.sh`.
 
 Usage
 -----
