@@ -1,7 +1,7 @@
 #!/bin/sh
 has_p_option=false
 while getopts :p opt; do
-    case $opt in 
+    case $opt in
         p) has_p_option=true ;;
         :) echo "Missing argument for option -$OPTARG"; exit 1;;
        \?) echo "Unknown option -$OPTARG"; exit 1;;
