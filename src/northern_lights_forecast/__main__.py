@@ -3,7 +3,7 @@ import click
 
 import northern_lights_forecast.img as img
 import northern_lights_forecast.northern_lights as nl
-from . import __version__
+from northern_lights_forecast.__init__ import __version__
 
 
 @click.command()

@@ -102,7 +102,7 @@ through March, using cron to automate the task. Run
 
 .. code:: console
 
-    bash crontab.sh
+    sh crontab.sh
 
 to set this up, or edit the cron script manually with
 
@@ -110,18 +110,21 @@ to set this up, or edit the cron script manually with
 
     env EDITOR=nano crontab -e
 
-and add
+The general form of how you edit cron is as shown below, but to get the exact string you
+can run :code:`sh crontab.sh -p`, where the option :code:`-p` will make the script print
+to the console rather than edit cron. The same options can be used when running the script
+as a cron job as is specified in the `Command-line Reference <Usage_>`_ (e.g.\ the
+:code:`-l` option).
 
 .. code:: console
 
     0 0-4,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python src/northern_lights_forecast/__main__.py >> t.txt 2>&1
 
-to the script to set cron to run as described above, or edit to a custom
-setting: https://crontab.guru/
+To change when the script is run, edit the cron scheduling to a custom setting:
+https://crontab.guru/
 
-When setting up cron, the python environment and the tesseract executable has
-to be included to path in the cron script. If the older version using selenium
-is used then geckodriver is needed in path.
+When setting up cron, the tesseract executable has to be included to path in the cron
+script. Run :code:`which tesseract` to get its location.
 
 Contributing
 ------------
