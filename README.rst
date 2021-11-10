@@ -42,8 +42,8 @@ just follow `this guide`_.
 Requirements
 ------------
 
-The project uses `tesseract` to read off the scale on the magnetogram plots. See
-installation instructions below.
+The project uses `tesseract` to read the scale off a magnetogram plot. See installation
+instructions below.
 
 Installation
 ------------
@@ -58,13 +58,17 @@ Installation
   nlf`
 * Install tesseract_, used with the package pytesseract.
 * The get yourself a telegram bot using `this guide`_.
+* You might need to install :code:`opencv`. If you want to run the box on for example a
+  raspberry pi, check out `this video`_ for installation of `openvc`.
 * Set up a virtual environment and activate. (Use whatever, for example poetry:
   :code:`poetry shell`)
 * Now we are ready to install the project; run :code:`poetry install` in the root of the
-  project. :code:`pillow` is a bit picky, and might have to be installed directly with
-  pip: :code:`pip install pillow`. And :code:`pip install scipy`, :code:`pip install
-  scikit-image`, :code:`pip install opencv-python`.
-* Set up a cron job: :code:`sh crontab.sh`.
+  project.
+  .. :code:`pillow` is a bit picky, and might have to be installed directly with
+  .. pip: :code:`pip install pillow`. And :code:`pip install scipy`, :code:`pip install
+  .. scikit-image`, :code:`pip install opencv-python`.
+* Set up a cron job: :code:`sh crontab.sh` (running :code:`sh croptab.sh -p` will print to
+  the console instead of installing a new cron job).
 
 Usage
 -----
@@ -91,13 +95,14 @@ Below is an example with the original image above the new reverse engineered gra
 
 .. image:: assets/after.png
 
-At a given threshold of the derivative of the X component of a magnetometer in Tromsø, a
-notification is sent to a telegram bot to let the user know of the current substorm event.
+At a given threshold of the derivative of the X component of a magnetometer in Tromsø (or
+one of the supported locations, see :code:`nlf --locations`), a notification is sent to a
+telegram bot to let the user know of the current substorm event.
 
 Cron
 ----
 
-The script can be run every hour from 18:00 through 04:00 during the months September
+The script can be run every hour from 18:00 through 08:00 during the months September
 through March, using cron to automate the task. Run
 
 .. code:: console
@@ -118,13 +123,15 @@ as a cron job as is specified in the `Command-line Reference <Usage_>`_ (e.g.\ t
 
 .. code:: console
 
-    0 0-4,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python src/northern_lights_forecast/__main__.py >> t.txt 2>&1
+    0 0-8,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python src/northern_lights_forecast/__main__.py > t.txt 2>&1
 
 To change when the script is run, edit the cron scheduling to a custom setting:
 https://crontab.guru/
 
-When setting up cron, the tesseract executable has to be included to path in the cron
-script. Run :code:`which tesseract` to get its location.
+The :code:`crontab.sh` script will try to find the tesseract executable and add this to
+path, which is needed for the cronjob to work.  If it cannot find tesseract, a comment is
+instead printed warning about this, and you have to verify the installation of tesseract
+and possibly add it to path manually.
 
 Contributing
 ------------
@@ -163,6 +170,7 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _RealPython: https://realpython.com/python-send-email/#option-1-setting-up-a-gmail-account-for-development
 .. _Tromsø Geophysical Observatory: https://www.tgo.uit.no/
 .. _this guide: https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
+.. _this video: https://www.youtube.com/watch?v=rdBTLOx0gi4
 .. _Savitzky-Golay filter: https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
