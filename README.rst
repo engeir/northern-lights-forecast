@@ -58,7 +58,7 @@ Installation
   nlf`
 * Install tesseract_, used with the package pytesseract.
 * The get yourself a telegram bot using `this guide`_.
-* You might need to install :code:`opencv`. If you want to run the box on for example a
+* You might need to install :code:`opencv`. If you want to run the bot on for example a
   raspberry pi, check out `this video`_ for installation of `openvc`.
 * Set up a virtual environment and activate. (Use whatever, for example poetry:
   :code:`poetry shell`)
