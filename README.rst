@@ -59,21 +59,42 @@ Installation
 * Install tesseract_, used with the package pytesseract.
 * The get yourself a telegram bot using `this guide`_.
 * You might need to install :code:`opencv`. If you want to run the bot on for example a
-  raspberry pi, check out `this video`_ for installation of `openvc`.
+  raspberry pi, check out `this video`_ for installation of :code:`opencv`.
 * Set up a virtual environment and activate. (Use whatever, for example poetry:
-  :code:`poetry shell`)
+  :code:`poetry shell`.)
 * Now we are ready to install the project; run :code:`poetry install` in the root of the
   project.
-  .. :code:`pillow` is a bit picky, and might have to be installed directly with
-  .. pip: :code:`pip install pillow`. And :code:`pip install scipy`, :code:`pip install
-  .. scikit-image`, :code:`pip install opencv-python`.
+.. :code:`pillow` is a bit picky, and might have to be installed directly with
+.. pip: :code:`pip install pillow`. And :code:`pip install scipy`, :code:`pip install
+.. scikit-image`, :code:`pip install opencv-python`.
 * Set up a cron job: :code:`sh crontab.sh` (running :code:`sh croptab.sh -p` will print to
   the console instead of installing a new cron job).
 
 Usage
 -----
 
-Please see the `Command-line Reference <Usage_>`_ for details.
+Please see the `Command-line Reference <Usage_>`_ for details. Below is the output of
+:code:`nlf --help`:
+
+.. code:: console
+
+    Usage: nlf [OPTIONS]
+
+      Northern Lights Forecast.
+
+    Options:
+      --version                     Show the version and exit.
+      -l, --location TEXT           Which magnetometer to use. Run with '--
+                                    locations' option to list all available
+                                    locations.  [default: Tromsø]
+
+      --locations / --no-locations  List out available magnetometer locations.
+                                    [default: False]
+
+      --test / --no-test            Test sending message to telegram.  [default:
+                                    False]
+
+      --help                        Show this message and exit.
 
 How?
 ----
