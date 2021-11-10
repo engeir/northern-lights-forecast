@@ -32,7 +32,7 @@ def nlf(location: str) -> None:
     print(dy)
     if dy < -2:
         txt = (
-            f"Northern Lights Warning!\n\nGradient: {np.min(dy)}\n\n"
+            f"Northern Lights Warning in {location}!\n\nGradient: {np.min(dy)}\n\n"
             + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
         telegram_send.send(messages=[txt])
