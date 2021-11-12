@@ -55,13 +55,16 @@ jobs:
           nox --version
 
       - name: Install tesseract
-        steps:
-          - name: Install on ubuntu
-            if: matrix.os == 'ubuntu-latest'
-            run: sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
-          - name: Install on mac
-            if: matrix.os == 'macos-latest'
-            run: brew install tesseract-ocr tesseract-ocr-eng
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install tesseract-ocr tesseract-ocr-eng
+          else
+            echo "$RUNNER_OS not supported"
+            exit 1
+          fi
+        shell: bash
 
       - name: Print tesseract version
         run: echo $(tesseract --version)
