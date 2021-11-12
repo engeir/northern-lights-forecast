@@ -17,6 +17,7 @@ nox.options.sessions = (
     "pre-commit",
     "safety",
     # "mypy",
+    "black",
     "tests",
     "typeguard",
     "xdoctest",
