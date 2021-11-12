@@ -59,7 +59,7 @@ jobs:
           if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
           elif [ "$RUNNER_OS" == "macOS" ]; then
-            brew install tesseract-ocr tesseract-ocr-eng
+            brew install tesseract
           else
             echo "$RUNNER_OS not supported"
             exit 1
