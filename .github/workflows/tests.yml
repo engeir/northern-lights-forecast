@@ -54,6 +54,12 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
 
+      - name: Install tesseract
+        run: sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
+
+      - name: Print tesseract version
+        run: echo $(tesseract --version)
+
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
         id: pre-commit-cache
