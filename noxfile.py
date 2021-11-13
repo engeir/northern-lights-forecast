@@ -8,7 +8,7 @@ import nox
 from nox_poetry import Session
 from nox_poetry import session
 
-# from typing import Any
+from typing import Any
 
 # import sys
 # import tempfile
