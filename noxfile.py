@@ -26,6 +26,30 @@ nox.options.sessions = (
     "docs-build",
 )
 
+def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
+    """Install packages constrained by Poetry's lock file.
+    This function is a wrapper for nox.sessions.Session.install. It
+    invokes pip to install packages inside of the session's virtualenv.
+    Additionally, pip is passed a constraints file generated from
+    Poetry's lock file, to ensure that the packages are pinned to the
+    versions specified in poetry.lock. This allows you to manage the
+    packages as Poetry development dependencies.
+    Arguments:
+        session: The Session object.
+        args: Command-line arguments for pip.
+        kwargs: Additional keyword arguments for Session.install.
+    """
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "poetry",
+            "export",
+            "--dev",
+            "--format=requirements.txt",
+            f"--output={requirements.name}",
+            external=True,
+        )
+        session.install(f"--constraint={requirements.name}", *args, **kwargs)
+
 
 # def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
 #     """Install packages constrained by Poetry's lock file."""
@@ -42,8 +66,8 @@ nox.options.sessions = (
 #     )
 #     session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
-#     requirements.close()
-#     os.unlink(requirements.name)
+    requirements.close()
+    os.unlink(requirements.name)
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -161,12 +185,15 @@ def coverage(session: Session) -> None:
     has_args = session.posargs and nsessions == 1
     args = session.posargs if has_args else ["report"]
 
-    session.install("coverage[toml]")
+    # session.install("coverage[toml]")
 
-    if not has_args and any(Path().glob(".coverage.*")):
-        session.run("coverage", "combine", "--fail-under=0")
+    install_with_constraints(session, "coverage[toml]", "codecov")
+    # if not has_args and any(Path().glob(".coverage.*")):
+    #     session.run("coverage", "combine", "--fail-under=0")
 
-    session.run("coverage", *args)
+    session.run("coverage", "xml", "--fail-under=0")
+    session.run("codecov", *args)
+    # session.run("coverage", *args)
 
 
 @session(python=python_versions)
