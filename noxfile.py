@@ -164,7 +164,7 @@ def coverage(session: Session) -> None:
     session.install("coverage[toml]")
 
     if not has_args and any(Path().glob(".coverage.*")):
-        session.run("coverage", "combine")
+        session.run("coverage", "combine", "--fail-under=0")
 
     session.run("coverage", *args)
 
