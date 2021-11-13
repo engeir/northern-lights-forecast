@@ -1,17 +1,15 @@
 """Nox sessions."""
 # import os
 import shutil
+import tempfile
 from pathlib import Path
 from textwrap import dedent
+from typing import Any
 
 import nox
 from nox_poetry import Session
 from nox_poetry import session
-
-from typing import Any
-
 # import sys
-import tempfile
 
 package = "northern_lights_forecast"
 python_versions = ["3.9", "3.8", "3.7"]
@@ -19,7 +17,6 @@ nox.options.sessions = (
     "pre-commit",
     "safety",
     # "mypy",
-    "black",
     "tests",
     "typeguard",
     "xdoctest",
@@ -45,11 +42,12 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
             "poetry",
             "export",
             "--dev",
+            "--without-hashes",
             "--format=requirements.txt",
             f"--output={requirements.name}",
             external=True,
         )
-        session.install(f"--constraint=={requirements.name}", *args, **kwargs)
+        session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
     # def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
     #     """Install packages constrained by Poetry's lock file."""
@@ -66,8 +64,8 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
     #     )
     #     session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
-    requirements.close()
-    os.unlink(requirements.name)
+    # requirements.close()
+    # os.unlink(requirements.name)
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -185,14 +183,14 @@ def coverage(session: Session) -> None:
     has_args = session.posargs and nsessions == 1
     args = session.posargs if has_args else ["report"]
 
-    session.install("coverage[toml]")
+    # session.install("coverage[toml]")
 
-    # install_with_constraints(session, "coverage[toml]", "codecov")
+    install_with_constraints(session, "coverage[toml]", "codecov")
     # if not has_args and any(Path().glob(".coverage.*")):
     #     session.run("coverage", "combine", "--fail-under=0")
 
     session.run("coverage", "xml", "--fail-under=0")
-    session.run("codecov", *args)
+    session.run("codecov", *session.posargs)
     # session.run("coverage", *args)
 
 
