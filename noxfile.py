@@ -26,6 +26,7 @@ nox.options.sessions = (
     "docs-build",
 )
 
+
 def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
     """Install packages constrained by Poetry's lock file.
     This function is a wrapper for nox.sessions.Session.install. It
@@ -50,21 +51,20 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
         )
         session.install(f"--constraint=={requirements.name}", *args, **kwargs)
 
+    # def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
+    #     """Install packages constrained by Poetry's lock file."""
+    #     requirements = tempfile.NamedTemporaryFile(delete=False)
 
-# def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
-#     """Install packages constrained by Poetry's lock file."""
-#     requirements = tempfile.NamedTemporaryFile(delete=False)
-
-#     session.run(
-#         "poetry",
-#         "export",
-#         "--dev",
-#         "--format=requirements.txt",
-#         "--without-hashes",
-#         f"--output={requirements.name}",
-#         external=True,
-#     )
-#     session.install(f"--constraint={requirements.name}", *args, **kwargs)
+    #     session.run(
+    #         "poetry",
+    #         "export",
+    #         "--dev",
+    #         "--format=requirements.txt",
+    #         "--without-hashes",
+    #         f"--output={requirements.name}",
+    #         external=True,
+    #     )
+    #     session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
     requirements.close()
     os.unlink(requirements.name)
@@ -185,9 +185,9 @@ def coverage(session: Session) -> None:
     has_args = session.posargs and nsessions == 1
     args = session.posargs if has_args else ["report"]
 
-    # session.install("coverage[toml]")
+    session.install("coverage[toml]")
 
-    install_with_constraints(session, "coverage[toml]", "codecov")
+    # install_with_constraints(session, "coverage[toml]", "codecov")
     # if not has_args and any(Path().glob(".coverage.*")):
     #     session.run("coverage", "combine", "--fail-under=0")
 
