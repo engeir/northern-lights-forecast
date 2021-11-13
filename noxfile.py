@@ -11,7 +11,7 @@ from nox_poetry import session
 from typing import Any
 
 # import sys
-# import tempfile
+import tempfile
 
 package = "northern_lights_forecast"
 python_versions = ["3.9", "3.8", "3.7"]
