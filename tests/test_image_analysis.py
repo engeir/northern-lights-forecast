@@ -29,7 +29,7 @@ def test_removel_line() -> None:
     # y = 9999, however, should be kept
     y[800:890] = 9999
     x_, y_ = image_analysis.remove_line(x, y)
-    assert len(x_) == 632, f"Actually, {x_.shape = }"
+    assert len(x_) == 632, f"Actually, x_.shape = {x_.shape}"
     assert x_.shape == y_.shape, "Shapes of output arrays do not match"
     assert (y_ == 9999).sum() == 90, f"Actually, 9999 is found {(y_==9999).sum()} times"
 
