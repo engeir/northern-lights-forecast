@@ -4,6 +4,7 @@ From
 https://stackoverflow.com/questions/60051941/find-the-
 coordinates-in-an-image-where-a-specified-colour-is-detected
 """
+import os
 from typing import Tuple
 
 import cv2
@@ -70,23 +71,33 @@ def remove_line(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     return x, y
 
 
-def grab_blue_line(scaling: float) -> float:
-    """Find the continuous line from a plot in 'new_im.jpg'.
+def grab_blue_line(scaling: float, img_file: str = None) -> float:
+    """Find a continuous line from a black/white image (will look in 'out/new_im.jpg').
 
     Parameters
     ----------
     scaling: float
         How 'y' axis scale to number of pixels
+    img_file: str, optional
+        If given, should be the path to a black/white image.
 
     Returns
     -------
     float
-        The scaling factor
+        Minimum derivative from the last 20% of the line.
     """
+    if img_file is None:
+        file = "out/new_im.jpg"
+    else:
+        file = img_file
+        if not os.path.isfile(file):
+            raise ValueError(f"Cannot find the file {img_file}.")
     # Load image
-    im = cv2.imread("out/new_im.jpg")
+    im = cv2.imread(file)
 
-    # Define the blue colour we want to find - remember OpenCV uses BGR ordering
+    # Define the blue colour we want to find - remember OpenCV uses BGR ordering. At this
+    # point we should only have one line (except horizontal lines) that is completely
+    # white.
     blue = [255, 255, 255]
 
     # Get x and y coordinates of all blue pixels
@@ -124,7 +135,8 @@ def grab_blue_line(scaling: float) -> float:
     # plt.savefig('after.png', dpi=200)
     # plt.figure()
     # plt.plot(x_, dy, 'r')
-    plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
+    if img_file is None:
+        plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
     # plt.show()
     # === </ Plot the result > ===
 
