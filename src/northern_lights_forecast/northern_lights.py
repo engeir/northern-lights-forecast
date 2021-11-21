@@ -25,16 +25,44 @@ def telegram_test() -> None:
     telegram_send.send(messages=["Test"])
 
 
+def forecast(loc: str, dy: float) -> str:
+    """Different forecasting based on the magnetometer gradient.
+    
+    Parameters
+    ----------
+    loc: str
+        Location of the magnetometer / forecast
+    dy: float
+        Minimum gradient
+
+    Returns
+    -------
+    str:
+        Forecast to send to the telegram bot
+    """
+    if dy < - 2:
+        txt = (
+            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
+            + "There are good chances of seeing northern lights in the next hours!\n\n"
+            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+        )
+    elif dy < - 1:
+        txt = (
+            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
+            + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
+            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+        )
+    else:
+        return "None"
+    return txt
+
+
 def nlf(location: str) -> None:
     """Run the Northern Lights Forecast."""
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)
-    print(dy)
-    if dy < -2:
-        txt = (
-            f"Northern Lights Warning in {location}!\n\nGradient: {np.min(dy)}\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
-        )
+    txt = forecast(location, dy)
+    if txt != "None":
         telegram_send.send(messages=[txt])
 
 
