@@ -13,8 +13,9 @@ env EDITOR=nano crontab -e
 ```
 into the terminal.
 """
-import numpy as np
+import logging
 import telegram_send
+from logging.handlers import RotatingFileHandler
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
@@ -27,7 +28,7 @@ def telegram_test() -> None:
 
 def forecast(loc: str, dy: float) -> str:
     """Different forecasting based on the magnetometer gradient.
-    
+
     Parameters
     ----------
     loc: str
@@ -40,13 +41,30 @@ def forecast(loc: str, dy: float) -> str:
     str:
         Forecast to send to the telegram bot
     """
-    if dy < - 2:
+    log_formatter = logging.Formatter(
+        "[%(asctime)s %(levelname)s] %(message)s", datefmt="%Y/%d/%m %H:%M:%S"
+    )
+    my_handler = RotatingFileHandler(
+        "nlf.log",
+        mode="a",
+        maxBytes=5 * 1024 * 1024,
+        backupCount=2,
+        encoding=None,
+        delay=0,
+    )
+    my_handler.setFormatter(log_formatter)
+    my_handler.setLevel(logging.INFO)
+    app_log = logging.getLogger("root")
+    app_log.setLevel(logging.INFO)
+    app_log.addHandler(my_handler)
+    app_log.info(f"Smallest gradient in {loc} is {dy}.")
+    if dy < -2:
         txt = (
             f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
             + "There are good chances of seeing northern lights in the next hours!\n\n"
             + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
-    elif dy < - 1:
+    elif dy < -1:
         txt = (
             f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
             + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
