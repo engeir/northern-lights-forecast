@@ -70,6 +70,12 @@ def forecast(loc: str, dy: float) -> str:
             + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
             + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
+    elif dy < - 0.5:
+        txt = (
+            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
+            + "With little light pollution you might see some northern lights.\n\n"
+            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+        )
     else:
         return "None"
     return txt
