@@ -12,3 +12,4 @@ __pycache__/
 t.txt
 out/
 nlf.log
+config.ini

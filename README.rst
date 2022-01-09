@@ -96,6 +96,15 @@ Please see the `Command-line Reference <Usage_>`_ for details. Below is the outp
 
       --help                        Show this message and exit.
 
+It is also possible to visit the telegram bot and query for forecasts live. This includes
+the commands: :code:`/start` and :code:`/help` which will do the same thing, greet you
+with a helpful message; :code:`/locations` which will print out the valid locations a
+forecast can be obtained from and :code:`Forecast <location>`, that is, any message that
+starts with the word :code:`forecast` and has a valid location as any of the succeeding
+words.
+
+.. image:: assets/telegram_screendump.gif
+
 How?
 ----
 
