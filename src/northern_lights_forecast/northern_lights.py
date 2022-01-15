@@ -44,7 +44,7 @@ def forecast(loc: str, dy: float) -> str:
         Forecast to send to the telegram bot
     """
     log_formatter = logging.Formatter(
-        "[%(asctime)s %(levelname)s] %(message)s", datefmt="%Y/%d/%m %H:%M:%S"
+        "[%(asctime)s %(levelname)s] %(message)s", datefmt="%Y/%m/%d %H:%M:%S"
     )
     my_handler = RotatingFileHandler(
         "nlf.log",
