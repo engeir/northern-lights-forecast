@@ -84,7 +84,7 @@ Set up a cron job:
    sh crontab.sh
 
 Running :code:`sh croptab.sh -p` will print to the console instead of installing a new
-cron job).
+cron job.
 
 Usage
 -----
