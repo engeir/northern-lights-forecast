@@ -54,21 +54,36 @@ Installation
 
 ..    $ pip install northern-lights-forecast
 
-* Clone: :code:`git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd
-  nlf`
-* Install tesseract_, used with the package pytesseract.
-* The get yourself a telegram bot using `this guide`_.
-* You might need to install :code:`opencv`. If you want to run the bot on for example a
-  raspberry pi, check out `this video`_ for installation of :code:`opencv`.
-* Set up a virtual environment and activate. (Use whatever, for example poetry:
-  :code:`poetry shell`.)
-* Now we are ready to install the project; run :code:`poetry install` in the root of the
-  project.
+Clone the repository:
+
+.. code:: console
+    git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf
+
+Install tesseract_, used with the package pytesseract.
+
+Then get yourself a telegram bot using `this guide`_.
+
+You might need to install :code:`opencv` manually. If you want to run the bot on for
+example a raspberry pi, check out `this video`_ for installation of :code:`opencv`.
+
+Set up a virtual environment and activate. (Use whatever, for example poetry:
+:code:`poetry shell`.)
+
+Now we are ready to install the project; run :code:`poetry install` in the root of the
+project.
+
 .. :code:`pillow` is a bit picky, and might have to be installed directly with
 .. pip: :code:`pip install pillow`. And :code:`pip install scipy`, :code:`pip install
 .. scikit-image`, :code:`pip install opencv-python`.
-* Set up a cron job: :code:`sh crontab.sh` (running :code:`sh croptab.sh -p` will print to
-  the console instead of installing a new cron job).
+
+Set up a cron job:
+
+.. code:: console
+
+   sh crontab.sh
+
+Running :code:`sh croptab.sh -p` will print to the console instead of installing a new
+cron job).
 
 Usage
 -----
@@ -96,12 +111,18 @@ Please see the `Command-line Reference <Usage_>`_ for details. Below is the outp
 
       --help                        Show this message and exit.
 
-It is also possible to visit the telegram bot and query for forecasts live. This includes
-the commands: :code:`/start` and :code:`/help` which will do the same thing, greet you
-with a helpful message; :code:`/locations` which will print out the valid locations a
-forecast can be obtained from and :code:`Forecast <location>`, that is, any message that
-starts with the word :code:`forecast` and has a valid location as any of the succeeding
-words.
+Telegram
+^^^^^^^^
+
+It is also possible to visit the telegram bot (:code:`@NorthernLightsForecastBot`) and
+query for forecasts live. This includes the commands:
+
+* :code:`/start` and :code:`/help`: this will do the same thing, greet you with a helpful
+  message
+* :code:`/locations`: which will print out the valid locations a forecast can be obtained
+  from
+* :code:`Forecast <location>`: that is, any message that starts with the word
+  :code:`forecast` and has a valid location as any of the succeeding words.
 
 .. image:: assets/telegram_screendump.gif
 

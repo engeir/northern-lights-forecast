@@ -1,9 +1,11 @@
+"""Implementation of commands and message handlers to be used with the telegram bot."""
 import configparser
 
+import requests
 import telebot
 
-import northern_lights_forecast.img as img
 import northern_lights_forecast.image_analysis as ima
+import northern_lights_forecast.img as img
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -13,23 +15,26 @@ bot = telebot.TeleBot(TOKEN)  # , parse_mode=None)
 
 
 @bot.message_handler(commands=["start", "help"])
-def send_welcome(message):
+def send_welcome(message) -> None:
+    """Send a welcome message with info about the bot."""
     bot.send_message(
         message.chat.id,
-        "Oh hi! Welcome to the nlf interaction bot. I'm able to respond to "
+        "Oh hi! Welcome to the nlf bot. I'm able to respond to "
         + "/locations and any message that starts with 'forecast'.",
     )
 
 
 @bot.message_handler(commands=["locations"])
-def send_locations(message):
+def send_locations(message) -> None:
+    """Send a list of available locations."""
     txt = "All nlf locations:\n\n"
     for loc in img.__PLACE__.keys():
         txt += f"{loc}\n"
     bot.send_message(message.chat.id, txt)
 
 
-def is_forecast(message):
+def is_forecast(message) -> bool:
+    """Check if the message sent starts with 'forecast'."""
     words = message.text.split()
     if words[0].lower() == "forecast" and len(words) > 1:
         return True
@@ -38,7 +43,7 @@ def is_forecast(message):
 
 
 @bot.message_handler(func=is_forecast)
-def get_location_forecast(message):
+def get_location_forecast(message) -> None:
     """Run the Northern Lights Forecast."""
     words = message.text.split()[1:]
     # check if any of the words are valid locations
@@ -62,8 +67,10 @@ def get_location_forecast(message):
     )
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)
+    weather_condition = requests.get(f"https://wttr.in/{location}?format=%C")
     txt = (
-        f"The gradient in {location} is now at {dy}.\n\n"
+        f"The gradient in {location} is now at {dy} with "
+        + f"weather conditions described as {weather_condition.text.lower()}\n\n"
         + "Usually, less than -0.5 is okay, less than -1 is good "
         + "and less than -2 is get the fuck out right now!"
     )

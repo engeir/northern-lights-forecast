@@ -14,8 +14,10 @@ env EDITOR=nano crontab -e
 into the terminal.
 """
 import logging
-import telegram_send
 from logging.handlers import RotatingFileHandler
+
+import requests
+import telegram_send
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
@@ -62,22 +64,22 @@ def forecast(loc: str, dy: float) -> str:
         txt = (
             f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
             + "There are good chances of seeing northern lights in the next hours!\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
     elif dy < -1:
         txt = (
             f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
             + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
-    elif dy < - 0.5:
+    elif dy < -0.5:
         txt = (
             f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
             + "With little light pollution you might see some northern lights.\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
         )
     else:
         return "None"
+    weather_condition = requests.get(f"https://wttr.in/{loc}?format=%C")
+    txt += f"The weather conditions right now: {weather_condition.text.lower()}\n\n"
+    txt += "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
     return txt
 
 
