@@ -69,12 +69,12 @@ def get_location_forecast(message) -> None:
     dy = ima.grab_blue_line(scaling)
     weather_condition = requests.get(f"https://wttr.in/{location}?format=%C")
     txt = (
-        f"The gradient in {location} is now at {dy} with "
-        + f"weather conditions described as {weather_condition.text.lower()}\n\n"
-        + "Usually, less than -0.5 is okay, less than -1 is good "
-        + "and less than -2 is get the fuck out right now!"
+        f"The gradient in {location} is now at *{dy}* with "
+        + f"weather conditions described as *{weather_condition.text.lower()}*.\n\n"
+        + "__Usually, less than -0.5 is okay, less than -1 is good "
+        + "and less than -2 is get the fuck out right now!__"
     )
-    bot.send_message(message.chat.id, txt)
+    bot.send_message(message.chat.id, txt, parse_mode="MARKDOWN")
 
 
 bot.infinity_polling()
