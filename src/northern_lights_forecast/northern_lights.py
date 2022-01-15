@@ -60,21 +60,19 @@ def forecast(loc: str, dy: float) -> str:
     app_log.setLevel(logging.INFO)
     app_log.addHandler(my_handler)
     app_log.info(f"Smallest gradient in {loc} is {dy}.")
+    txt = (
+        "\U0001F525"
+        + f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
+        + "\U0001F525"
+    )
     if dy < -2:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
-            + "There are good chances of seeing northern lights in the next hours!\n\n"
-        )
+        txt += "There are good chances of seeing northern lights in the next hours!\n\n"
     elif dy < -1:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
-            + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
+        txt += (
+            "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
         )
     elif dy < -0.5:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
-            + "With little light pollution you might see some northern lights.\n\n"
-        )
+        txt += "With little light pollution you might see some northern lights.\n\n"
     else:
         return "None"
     weather_condition = requests.get(f"https://wttr.in/{loc}?format=%C")
