@@ -67,10 +67,11 @@ def get_location_forecast(message) -> None:
     )
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)
-    weather_condition = requests.get(f"https://wttr.in/{location}?format=%C")
+    w_s = requests.get(f"https://wttr.in/{location}?format=%c").text
+    w_c = requests.get(f"https://wttr.in/{location}?format=%C").text.lower()
     txt = (
         f"The gradient in {location} is now at <b>{dy}</b> with weather conditions "
-        + f"described as <b>{weather_condition.text.lower()}</b>.\n\n"
+        + f"described as {w_s}<b>{w_c}</b>{w_s}.\n\n"
         + "<i>Usually, less than -0.5 is okay, less than -1 is good "
         + "and less than -2 is get the fuck out right now!</i>"
     )
