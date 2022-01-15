@@ -57,6 +57,7 @@ Installation
 Clone the repository:
 
 .. code:: console
+
     git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf
 
 Install tesseract_, used with the package pytesseract.
