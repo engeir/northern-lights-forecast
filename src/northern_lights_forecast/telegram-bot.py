@@ -11,7 +11,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 TOKEN = config["TELEBOT"]["token"]
 # You can set parse_mode by default. HTML or MARKDOWN
-bot = telebot.TeleBot(TOKEN, parse_mode="MARKDOWN")  # , parse_mode=None)
+bot = telebot.TeleBot(TOKEN, parse_mode="HTML")  # , parse_mode=None)
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -69,10 +69,10 @@ def get_location_forecast(message) -> None:
     dy = ima.grab_blue_line(scaling)
     weather_condition = requests.get(f"https://wttr.in/{location}?format=%C")
     txt = (
-        f"The gradient in {location} is now at *{dy}* with "
-        + f"weather conditions described as *{weather_condition.text.lower()}*.\n\n"
-        + "**Usually, less than -0.5 is okay, less than -1 is good "
-        + "and less than -2 is get the fuck out right now!**"
+        f"The gradient in {location} is now at <b>{dy}</b> with weather conditions "
+        + f"described as <b>{weather_condition.text.lower()}</b>.\n\n"
+        + "<i>Usually, less than -0.5 is okay, less than -1 is good "
+        + "and less than -2 is get the fuck out right now!</i>"
     )
     bot.send_message(message.chat.id, txt)
 
