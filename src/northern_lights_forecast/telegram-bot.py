@@ -71,8 +71,8 @@ def get_location_forecast(message) -> None:
     txt = (
         f"The gradient in {location} is now at *{dy}* with "
         + f"weather conditions described as *{weather_condition.text.lower()}*.\n\n"
-        + "__Usually, less than -0.5 is okay, less than -1 is good "
-        + "and less than -2 is get the fuck out right now!__"
+        + "**Usually, less than -0.5 is okay, less than -1 is good "
+        + "and less than -2 is get the fuck out right now!**"
     )
     bot.send_message(message.chat.id, txt)
 
