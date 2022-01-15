@@ -11,7 +11,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 TOKEN = config["TELEBOT"]["token"]
 # You can set parse_mode by default. HTML or MARKDOWN
-bot = telebot.TeleBot(TOKEN)  # , parse_mode=None)
+bot = telebot.TeleBot(TOKEN, parse_mode="MARKDOWN")  # , parse_mode=None)
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -74,7 +74,7 @@ def get_location_forecast(message) -> None:
         + "__Usually, less than -0.5 is okay, less than -1 is good "
         + "and less than -2 is get the fuck out right now!__"
     )
-    bot.send_message(message.chat.id, txt, parse_mode="MARKDOWN")
+    bot.send_message(message.chat.id, txt)
 
 
 bot.infinity_polling()
