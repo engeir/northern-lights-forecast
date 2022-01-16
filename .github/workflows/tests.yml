@@ -139,6 +139,21 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
 
+      - name: Install tesseract
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install tesseract
+          else
+            echo "$RUNNER_OS not supported"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Print tesseract version
+        run: echo $(tesseract --version)
+
       - name: Run codecov session
         run: nox --sessions tests-3.9 coverage
         env:
