@@ -15,7 +15,7 @@ Northern Lights Forecast
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue
    :target: https://opensource.org/licenses/MIT
    :alt: License
-.. |Read the Docs| image:: https://img.shields.io/readthedocs/northern-lights-forecast/latest.svg?label=Read%20the%20Docs
+.. |Read the Docs| image:: https://img.shields.io/readthedocs/northern-lights-forecast/stable.svg?label=Read%20the%20Docs
    :target: https://northern-lights-forecast.readthedocs.io/
    :alt: Read the documentation at https://northern-lights-forecast.readthedocs.io/
 .. |Tests| image:: https://github.com/engeir/northern-lights-forecast/workflows/Tests/badge.svg
