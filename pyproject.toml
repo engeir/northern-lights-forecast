@@ -25,21 +25,21 @@ Changelog = "https://github.com/engeir/northern-lights-forecast/releases"
 python = ">=3.7,<3.10"
 click = "^7.0"
 numpy = "^1.20.2"
-opencv-python = "^4.5.1"
+opencv-python = "^4.5.5"
 pytesseract = "^0.3.7"
 wget = "^3.2"
 scipy = "^1.6.2"
-matplotlib = "^3.4.1"
+matplotlib = "^3.5.1"
 telegram-send = "^0.25"
 scikit-image = "^0.18.3"
 pyTelegramBotAPI = "^4.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
-coverage = {extras = ["toml"], version = "^5.4"}
+coverage = {extras = ["toml"], version = "^6.2"}
 safety = "^1.10.3"
 mypy = "^0.812"
-typeguard = "^2.11.1"
+typeguard = "^2.13.3"
 xdoctest = {extras = ["colors"], version = "^0.15.4"}
 sphinx = "^3.5.2"
 sphinx-autobuild = "^2020.9.1"
