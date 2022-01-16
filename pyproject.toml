@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "northern-lights-forecast"
-version = "1.1.1"
+version = "1.2.0"
 description = "A simple web scraping northern lights forecast that automatically send an email during substorm events"
 authors = ["Eirik Rolland Enger <eirroleng@gmail.com>"]
 license = "MIT"
@@ -58,7 +58,6 @@ sphinx-rtd-theme = "^0.5.1"
 sphinx-click = "^2.6.0"
 Pygments = "^2.8.1"
 codecov = "^2.1.12"
-pytest-cov = "^3.0.0"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
