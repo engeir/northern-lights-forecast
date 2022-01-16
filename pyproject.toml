@@ -38,7 +38,7 @@ pyTelegramBotAPI = "^4.3.0"
 pytest = "^6.2.2"
 coverage = {extras = ["toml"], version = "^6.2"}
 safety = "^1.10.3"
-mypy = "^0.812"
+mypy = "^0.931"
 typeguard = "^2.13.3"
 xdoctest = {extras = ["colors"], version = "^0.15.4"}
 sphinx = "^3.5.2"
