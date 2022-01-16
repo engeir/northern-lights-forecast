@@ -185,7 +185,7 @@ def tests(session: Session) -> None:
             session.notify("coverage")
 
 
-@session
+@session(python="3.9")
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
     # Do not use session.posargs unless this is the only session.
