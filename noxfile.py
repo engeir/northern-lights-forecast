@@ -7,8 +7,11 @@ from textwrap import dedent
 from typing import Any
 
 import nox
-from nox_poetry import Session
-from nox_poetry import session
+from nox import session
+from nox.sessions import Session
+
+# from nox_poetry import Session
+# from nox_poetry import session
 
 # import sys
 
@@ -185,9 +188,9 @@ def tests(session: Session) -> None:
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
     # Do not use session.posargs unless this is the only session.
-    nsessions = len(session._runner.manifest)  # type: ignore[attr-defined]
-    has_args = session.posargs and nsessions == 1
-    args = session.posargs if has_args else ["report"]
+    # nsessions = len(session._runner.manifest)  # type: ignore[attr-defined]
+    # has_args = session.posargs and nsessions == 1
+    # args = session.posargs if has_args else ["report"]
 
     # session.install("coverage[toml]")
 
@@ -195,10 +198,10 @@ def coverage(session: Session) -> None:
     # if not has_args and any(Path().glob(".coverage.*")):
     #     session.run("coverage", "combine", "--fail-under=0")
 
-    session.run("coverage", "xml", "--fail-under", "0")
-    # session.run("codecov", *session.posargs)
+    session.run("coverage", "xml", "--fail-under=0")
+    session.run("codecov", *session.posargs)
     # session.run("codecov", *args)
-    session.run("coverage", *args)
+    # session.run("coverage", *args)
 
 
 @session(python=python_versions)
