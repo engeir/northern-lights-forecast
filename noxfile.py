@@ -197,8 +197,8 @@ def coverage(session: Session) -> None:
 
     session.run("coverage", "xml", "--fail-under=0")
     # session.run("codecov", *session.posargs)
-    session.run("codecov", *args)
-    # session.run("coverage", *args)
+    # session.run("codecov", *args)
+    session.run("coverage", *args)
 
 
 @session(python=python_versions)
