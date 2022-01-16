@@ -17,6 +17,7 @@ from nox_poetry import session
 # import sys
 
 package = "northern_lights_forecast"
+# owner, repository = "engeir", "northern-lights-forecast"
 python_versions = ["3.9", "3.8", "3.7"]
 nox.options.sessions = (
     "pre-commit",
