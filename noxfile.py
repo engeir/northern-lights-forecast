@@ -7,11 +7,12 @@ from textwrap import dedent
 from typing import Any
 
 import nox
-from nox import session
-from nox.sessions import Session
+from nox_poetry import Session
+from nox_poetry import session
 
-# from nox_poetry import Session
-# from nox_poetry import session
+# from nox import session
+# from nox.sessions import Session
+
 
 # import sys
 
