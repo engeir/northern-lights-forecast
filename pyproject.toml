@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "northern-lights-forecast"
-version = "1.2.2"
-description = "A simple web scraping northern lights forecast that automatically send an email during substorm events"
+version = "1.2.3"
+description = "A simple web scraping northern lights forecast that automatically send a telegram notification during substorm events"
 authors = ["Eirik Rolland Enger <eirroleng@gmail.com>"]
 license = "MIT"
 readme = "README.rst"

@@ -1,9 +1,9 @@
 Northern Lights Forecast
 ========================
 
-|License| |Read the Docs| |Tests|
+|PyPI| |Python Version| |License| |Read the Docs|
 
-|Codecov| |pre-commit| |Black|
+|Tests| |Codecov| |pre-commit| |Black|
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/northern-lights-forecast.svg
    :target: https://pypi.org/project/northern-lights-forecast/
