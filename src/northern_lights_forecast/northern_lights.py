@@ -14,8 +14,10 @@ env EDITOR=nano crontab -e
 into the terminal.
 """
 import logging
-import telegram_send
 from logging.handlers import RotatingFileHandler
+
+import requests
+import telegram_send
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
@@ -42,7 +44,7 @@ def forecast(loc: str, dy: float) -> str:
         Forecast to send to the telegram bot
     """
     log_formatter = logging.Formatter(
-        "[%(asctime)s %(levelname)s] %(message)s", datefmt="%Y/%d/%m %H:%M:%S"
+        "[%(asctime)s %(levelname)s] %(message)s", datefmt="%Y/%m/%d %H:%M:%S"
     )
     my_handler = RotatingFileHandler(
         "nlf.log",
@@ -58,26 +60,24 @@ def forecast(loc: str, dy: float) -> str:
     app_log.setLevel(logging.INFO)
     app_log.addHandler(my_handler)
     app_log.info(f"Smallest gradient in {loc} is {dy}.")
+    txt = (
+        "\U0001F525"
+        + f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
+        + "\U0001F525"
+    )
     if dy < -2:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
-            + "There are good chances of seeing northern lights in the next hours!\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
-        )
+        txt += "There are good chances of seeing northern lights in the next hours!\n\n"
     elif dy < -1:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
-            + "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
+        txt += (
+            "Fair chances of some northern lights the next hours, keep an eye up.\n\n"
         )
-    elif dy < - 0.5:
-        txt = (
-            f"Northern Lights Warning in {loc}!\n\nGradient: {dy}\n\n"
-            + "With little light pollution you might see some northern lights.\n\n"
-            + "Have a look at: http://fox.phys.uit.no/ASC/ASC01.html"
-        )
+    elif dy < -0.5:
+        txt += "With little light pollution you might see some northern lights.\n\n"
     else:
         return "None"
+    weather_condition = requests.get(f"https://wttr.in/{loc}?format=%C")
+    txt += f"The weather conditions right now: *{weather_condition.text.lower()}*.\n\n"
+    txt += "__Have a look at: http://fox.phys.uit.no/ASC/ASC01.html __"
     return txt
 
 
@@ -87,7 +87,7 @@ def nlf(location: str) -> None:
     dy = ima.grab_blue_line(scaling)
     txt = forecast(location, dy)
     if txt != "None":
-        telegram_send.send(messages=[txt])
+        telegram_send.send(messages=[txt], parse_mode="markdown")
 
 
 def main() -> None:
