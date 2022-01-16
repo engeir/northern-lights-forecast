@@ -195,7 +195,7 @@ def coverage(session: Session) -> None:
     # if not has_args and any(Path().glob(".coverage.*")):
     #     session.run("coverage", "combine", "--fail-under=0")
 
-    session.run("coverage", "xml", "--fail-under=0")
+    session.run("coverage", "xml", "--fail-under", "0")
     # session.run("codecov", *session.posargs)
     # session.run("codecov", *args)
     session.run("coverage", *args)
