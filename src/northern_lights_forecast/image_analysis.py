@@ -10,7 +10,10 @@ from typing import Tuple
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import savgol_filter
+
+from northern_lights_forecast.savgol.savitzky_golay import (
+    savitzky_golay as savgol_filter,
+)
 
 
 def mean_x(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
@@ -27,9 +30,14 @@ def mean_x(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     -------
     tuple:
         The new x and y arrays
+
+    Raises
+    ------
+    ValueError
+        If input arrays have different shapes
     """
     if x.shape != y.shape:
-        raise ValueError(f"Input arrays x and y have different shapes!")
+        raise ValueError("Input arrays x and y have different shapes!")
     idx = np.unique(x)
     x_ = np.array([])
     y_ = np.array([])
@@ -78,13 +86,18 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
     ----------
     scaling: float
         How 'y' axis scale to number of pixels
-    img_file: str, optional
+    img_file: str
         If given, should be the path to a black/white image.
 
     Returns
     -------
     float
         Minimum derivative from the last 20% of the line.
+
+    Raises
+    ------
+    ValueError
+        If image file is not found.
     """
     if img_file is None:
         file = "out/new_im.jpg"
