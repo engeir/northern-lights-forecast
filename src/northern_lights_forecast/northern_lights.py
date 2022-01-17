@@ -61,9 +61,9 @@ def forecast(loc: str, dy: float) -> str:
     app_log.addHandler(my_handler)
     app_log.info(f"Smallest gradient in {loc} is {dy}.")
     txt = (
-        # "\U0001F525"
-        f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
-        # + "\U0001F525"
+        "\U0001F525"
+        + f"Northern Lights Warning in {loc}!\n\nGradient: *{dy}*\n\n"
+        + "\U0001F525"
     )
     if dy < -2:
         txt += "There are good chances of seeing northern lights in the next hours!\n\n"
