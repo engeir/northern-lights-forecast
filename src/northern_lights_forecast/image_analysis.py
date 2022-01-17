@@ -10,11 +10,10 @@ from typing import Tuple
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import savgol_filter
 
-# from northern_lights_forecast.savgol.savitzky_golay import (
-#     savitzky_golay as savgol_filter,
-# )
+from northern_lights_forecast.savgol.savitzky_golay import (
+    savitzky_golay as savgol_filter,
+)
 
 
 def mean_x(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:

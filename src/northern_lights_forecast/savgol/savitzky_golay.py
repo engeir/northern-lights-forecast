@@ -2,7 +2,9 @@
 
 Removes scipy as a dependency, which is a BIG module.
 
-From: https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html
+From:
+https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html
+https://stackoverflow.com/questions/49322932/scipy-implementation-of-savitzky-golay-filter
 """
 from math import factorial
 
