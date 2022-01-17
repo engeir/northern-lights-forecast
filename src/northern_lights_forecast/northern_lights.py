@@ -88,7 +88,7 @@ def nlf(location: str) -> None:
     dy = ima.grab_blue_line(scaling)
     txt = forecast(location, dy)
     if txt != "None":
-        telegram_send.send(messages=[txt], parse_mode="markdown")
+        telegram_send.send(messages=[txt])
 
 
 def main() -> None:
