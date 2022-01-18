@@ -85,10 +85,10 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     order_range = range(order + 1)
     half_window = (window_size - 1) // 2
     # precompute coefficients
-    b = np.mat(
+    b = np.array(
         [[k ** i for i in order_range] for k in range(-half_window, half_window + 1)]
     )
-    m = np.linalg.pinv(b).A[deriv] * rate ** deriv * factorial(deriv)
+    m = np.linalg.pinv(b)[deriv] * rate ** deriv * factorial(deriv)
     # pad the signal at the extremes with
     # values taken from the signal itself
     # firstvals = y[0] - np.abs(y[1 : half_window + 1][::-1] - y[0])
