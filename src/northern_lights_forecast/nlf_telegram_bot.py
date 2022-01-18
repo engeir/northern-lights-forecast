@@ -11,7 +11,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 TOKEN = config["TELEBOT"]["token"]
 # You can set parse_mode by default. HTML or MARKDOWN
-bot = telebot.TeleBot(TOKEN, parse_mode="HTML")  # , parse_mode=None)
+bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -27,7 +27,7 @@ def send_welcome(message) -> None:
 @bot.message_handler(commands=["locations"])
 def send_locations(message) -> None:
     """Send a list of available locations."""
-    txt = "All nlf locations:\n\n"
+    txt = "All nlf supported locations:\n\n"
     for loc in img.__PLACE__.keys():
         txt += f"{loc}\n"
     bot.send_message(message.chat.id, txt)
