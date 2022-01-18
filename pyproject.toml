@@ -57,6 +57,7 @@ sphinx-rtd-theme = "^0.5.1"
 sphinx-click = "^2.6.0"
 Pygments = "^2.8.1"
 codecov = "^2.1.12"
+scipy = "^1.7.3"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
