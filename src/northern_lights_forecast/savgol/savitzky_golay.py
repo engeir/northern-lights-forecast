@@ -93,7 +93,9 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     # values taken from the signal itself
     # firstvals = y[0] - np.abs(y[1 : half_window + 1][::-1] - y[0])
     # lastvals = y[-1] + np.abs(y[-half_window - 1 : -1][::-1] - y[-1])
-    firstvals = 2 * y[0] - y[1 : half_window + 1][::-1]
-    lastvals = 2 * y[-1] - y[-half_window - 1 : -1][::-1]
+    # firstvals = 2 * y[0] - y[1 : half_window + 1][::-1]
+    # lastvals = 2 * y[-1] - y[-half_window - 1 : -1][::-1]
+    firstvals = 2 * y[0] - y[half_window:0:-1]
+    lastvals = 2 * y[-1] - y[-2 : -half_window - 2 : -1]
     y = np.concatenate((firstvals, y, lastvals))
     return np.convolve(m[::-1], y, mode="valid")
