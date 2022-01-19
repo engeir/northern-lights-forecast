@@ -138,18 +138,18 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
     # TODO: find the exact timespan used in the image
     # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
     # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
-    plt.figure()
-    plt.imshow(im)
-    plt.plot(x, y / scaling, "b")
-    plt.plot(x_, -y_ / scaling, "r")
+    # plt.figure()
+    # plt.imshow(im)
+    # plt.plot(x, y / scaling, "b")
+    # plt.plot(x_, -y_ / scaling, "r")
 
     # plt.figure()
     # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
     # plt.savefig('after.png', dpi=200)
     # plt.figure()
     # plt.plot(x_, dy, 'r')
-    if img_file is None:
-        plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
+    # if img_file is None:
+    #     plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
     # plt.show()
     # === </ Plot the result > ===
 
