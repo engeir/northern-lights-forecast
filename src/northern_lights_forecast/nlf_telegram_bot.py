@@ -6,6 +6,7 @@ import telebot
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
+from northern_lights_forecast.__init__ import __version__
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -20,7 +21,18 @@ def send_welcome(message) -> None:
     bot.send_message(
         message.chat.id,
         "Oh hi! Welcome to the nlf bot. I'm able to respond to "
-        + "/locations and any message that starts with 'forecast'.",
+        + "/locations and any message that starts with 'forecast'."
+        + "\n\nYou can also see what version I'm on with /version.",
+    )
+
+
+@bot.message_handler(commands=["version"])
+def send_version(message) -> None:
+    """Send a welcome message with info about the bot."""
+    bot.send_message(
+        message.chat.id,
+        f"nlf — version {__version__}\n\n"
+        + "https://github.com/engeir/northern-lights-forecast",
     )
 
 
@@ -61,6 +73,7 @@ def get_location_forecast(message) -> None:
         for place in img.__PLACE__.keys():
             if w.lower() in place.lower():
                 location = place
+                break
     if location == "None":
         # Send message that you did it wrong
         bot.send_message(
@@ -76,14 +89,24 @@ def get_location_forecast(message) -> None:
     )
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)
-    w_s = requests.get(f"https://wttr.in/{location}?format=%c").text
-    w_c = requests.get(f"https://wttr.in/{location}?format=%C").text.lower()
-    txt = (
-        f"The gradient in {location} is now at <b>{dy}</b> with weather conditions "
-        + f"described as {w_s}<b>{w_c}</b>{w_s}\n\n"
-        + "<i>Usually, less than -0.5 is okay, less than -1 is good "
-        + "and less than -2 is get the fuck out right now!</i>"
-    )
+    txt = f"The gradient in {location} is now at <b>{dy}</b>"
+    w_s = requests.get(f"https://wttr.in/{location}?format=%c")
+    w_c = requests.get(f"https://wttr.in/{location}?format=%C")
+    if all([w_s.ok, w_c.ok]):
+        w_s_txt = w_s.text
+        w_c_txt = w_c.text.lower()
+        txt += (
+            " with weather conditions described as "
+            + f"{w_s_txt}<b>{w_c_txt}</b>{w_s_txt}\n\n"
+            + "<i>Usually, less than -0.5 is okay, less than -1 is good "
+            + "and less than -2 is get the fuck out right now!</i>"
+        )
+    else:
+        txt += (
+            ".\n\n<i>Usually, less than -0.5 is okay, less than -1 is good "
+            + "and less than -2 is get the fuck out right now!</i>\n\n"
+            + "\U0001F6D1 <i>No weather data found</i> \U0001F6D1"
+        )
     bot.send_message(message.chat.id, txt)
 
 
