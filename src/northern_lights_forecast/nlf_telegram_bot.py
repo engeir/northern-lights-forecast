@@ -61,6 +61,7 @@ def get_location_forecast(message) -> None:
         for place in img.__PLACE__.keys():
             if w.lower() in place.lower():
                 location = place
+                break
     if location == "None":
         # Send message that you did it wrong
         bot.send_message(
@@ -76,14 +77,22 @@ def get_location_forecast(message) -> None:
     )
     scaling = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling)
-    w_s = requests.get(f"https://wttr.in/{location}?format=%c").text
-    w_c = requests.get(f"https://wttr.in/{location}?format=%C").text.lower()
-    txt = (
-        f"The gradient in {location} is now at <b>{dy}</b> with weather conditions "
-        + f"described as {w_s}<b>{w_c}</b>{w_s}\n\n"
-        + "<i>Usually, less than -0.5 is okay, less than -1 is good "
-        + "and less than -2 is get the fuck out right now!</i>"
-    )
+    txt = f"The gradient in {location} is now at <b>{dy}</b> with weather conditions "
+    try:
+        w_s = requests.get(f"https://wttr.in/{location}?format=%c").text
+        w_c = requests.get(f"https://wttr.in/{location}?format=%C").text.lower()
+    except Exception:
+        txt += (
+        "<i>Usually, less than -0.5 is okay, less than -1 is good "
+        + "and less than -2 is get the fuck out right now!</i>\n\n"
+        + "<i>No weather data found.</i>"
+        )
+    else:
+        txt += (
+            f"described as {w_s}<b>{w_c}</b>{w_s}\n\n"
+            + "<i>Usually, less than -0.5 is okay, less than -1 is good "
+            + "and less than -2 is get the fuck out right now!</i>"
+        )
     bot.send_message(message.chat.id, txt)
 
 
