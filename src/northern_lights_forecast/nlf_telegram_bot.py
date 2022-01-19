@@ -24,6 +24,15 @@ def send_welcome(message) -> None:
     )
 
 
+# @bot.message_handler(commands=["resources"])
+# def send_resources(message) -> None:
+#     """Send a list of resources."""
+#     txt = "All nlf supported locations:\n\n"
+#     for loc in img.__PLACE__.keys():
+#         txt += f"{loc}\n"
+#     bot.send_message(message.chat.id, txt)
+
+
 @bot.message_handler(commands=["locations"])
 def send_locations(message) -> None:
     """Send a list of available locations."""
@@ -50,7 +59,7 @@ def get_location_forecast(message) -> None:
     location = "None"
     for w in words:
         for place in img.__PLACE__.keys():
-            if w.lower() == place.lower():
+            if w.lower() in place.lower():
                 location = place
     if location == "None":
         # Send message that you did it wrong
