@@ -104,7 +104,7 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
     else:
         file = img_file
         if not os.path.isfile(file):
-            raise ValueError(f"Cannot find the file {img_file}.")
+            raise ValueError(f'Cannot find the file {file}.')
     # Load image
     im = cv2.imread(file)
 
