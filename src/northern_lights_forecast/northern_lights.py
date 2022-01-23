@@ -84,8 +84,8 @@ def forecast(loc: str, dy: float) -> str:
 
 def nlf(location: str) -> None:
     """Run the Northern Lights Forecast."""
-    scaling = img.img_analysis(location)
-    dy = ima.grab_blue_line(scaling)
+    scaling, im = img.img_analysis(location)
+    dy = ima.grab_blue_line(scaling, im)
     txt = forecast(location, dy)
     if txt != "None":
         telegram_send.send(messages=[txt], parse_mode="markdown")

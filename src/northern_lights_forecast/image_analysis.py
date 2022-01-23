@@ -4,11 +4,8 @@ From
 https://stackoverflow.com/questions/60051941/find-the-
 coordinates-in-an-image-where-a-specified-colour-is-detected
 """
-import os
 from typing import Tuple
 
-import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 
 from northern_lights_forecast.savgol.savitzky_golay import (
@@ -79,15 +76,15 @@ def remove_line(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     return x, y
 
 
-def grab_blue_line(scaling: float, img_file: str = None) -> float:
-    """Find a continuous line from a black/white image (will look in 'out/new_im.jpg').
+def grab_blue_line(scaling: float, im: np.ndarray) -> float:
+    """Find a continuous line from a black/blue image.
 
     Parameters
     ----------
     scaling: float
         How 'y' axis scale to number of pixels
-    img_file: str
-        If given, should be the path to a black/white image.
+    im: np.ndarray
+        Image to analyse and where we look for a blue line to trace out
 
     Returns
     -------
@@ -96,24 +93,15 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
 
     Raises
     ------
-    ValueError
-        If image file is not found.
+    IndexError
+        If the input image do not have the correct dimensions.
     """
-    if img_file is None:
-        file = "out/new_im.jpg"
-    else:
-        file = img_file
-        if not os.path.isfile(file):
-            raise ValueError(f"Cannot find the file {file}.")
-    # Load image
-    im = cv2.imread(file)
-
-    # Define the blue colour we want to find - remember OpenCV uses BGR ordering. At this
-    # point we should only have one line (except horizontal lines) that is completely
-    # white.
-    blue = [255, 255, 255]
-
+    if im.ndim != 3:
+        raise IndexError("Input image must be three dimensional.")
+    if im.shape[2] != 3:
+        raise IndexError("Input image must have three color channels (RGB).")
     # Get x and y coordinates of all blue pixels
+    blue = [0, 0, 255]
     y_where, x_where = np.where(np.all(im == blue, axis=2))
 
     x = x_where[np.argsort(x_where)]
@@ -133,7 +121,7 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
     # === < Plot the result > ===
     # import matplotlib.pyplot as plt
 
-    y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
+    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
     # Rescale x-axis to 22-hour plot
     # TODO: find the exact timespan used in the image
     # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
@@ -154,7 +142,3 @@ def grab_blue_line(scaling: float, img_file: str = None) -> float:
     # === </ Plot the result > ===
 
     return float(np.min(dy))
-
-
-if __name__ == "__main__":
-    _ = grab_blue_line(3)

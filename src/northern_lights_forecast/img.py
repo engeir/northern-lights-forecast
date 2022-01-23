@@ -4,14 +4,11 @@ This script finds all pixels with colour within a range a colours, while all
 other is coloured black. From
 https://www.pyimagesearch.com/2014/08/04/opencv-python-color-detection/
 """
-import os
+from typing import Tuple
 
-import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 import pytesseract
-import wget
-
-# import matplotlib.pyplot as plt
 
 __PLACE__ = {
     "Ny-Ålesund": "nal1a",
@@ -49,7 +46,7 @@ __PLACE__ = {
 
 
 def download(location: str) -> np.ndarray:
-    """Download a `.gif` file, save and return as `.jpg`.
+    """Download a `.gif` file, return as `.jpg`.
 
     Parameters
     ----------
@@ -62,23 +59,8 @@ def download(location: str) -> np.ndarray:
         the downloaded file as `.jpg`
     """
     loc = __PLACE__[location]
-    d = "out"
-    file = f"{d}/Last24_{loc}.gif"
-    if os.path.exists(file):
-        os.remove(file)
-    if not os.path.isdir(d):
-        os.makedirs(d)
-
     url = f"https://flux.phys.uit.no/Last24/Last24_{loc}.gif"
-    # saveas = "down.gif"
-    wget.download(url, out=f"{d}/Last24_{loc}.gif")
-
-    gif = cv2.VideoCapture(f"{d}/Last24_{loc}.gif")
-    ret, frame = gif.read()
-    cv2.imwrite(f"{d}/images.jpg", frame)
-    image = cv2.imread(f"{d}/images.jpg")
-
-    return image
+    return plt.imread(url, format="jpg")[:, :, :3]
 
 
 def read(image: np.ndarray) -> float:
@@ -94,7 +76,6 @@ def read(image: np.ndarray) -> float:
     float
         scaling factor of y axis to pixels
     """
-    print("")
     # Cut out the scale on the y-axis
     images = np.hstack([image[360:530, 1:55, :]])
     # Pick the grey scale
@@ -126,19 +107,12 @@ def read(image: np.ndarray) -> float:
         if y_level != int(ell[2]):
             y_level = int(ell[2])
             c += 1
-            if c == 1:
-                lim_0 += ell[0]
-                y_0 = ell[2]
-            elif c == 2:
-                lim_1 += ell[0]
-                y_1 = ell[2]
-        elif y_level == int(ell[2]):
-            if c == 1:
-                lim_0 += ell[0]
-                y_0 = ell[2]
-            elif c == 2:
-                lim_1 += ell[0]
-                y_1 = ell[2]
+        if c == 1:
+            lim_0 += ell[0]
+            y_0 = ell[2]
+        elif c == 2:
+            lim_1 += ell[0]
+            y_1 = ell[2]
         if c >= 3:
             break
     lim_b = float(lim_0[::-1])
@@ -150,31 +124,21 @@ def read(image: np.ndarray) -> float:
     return 1 / round(abs(lim_t - lim_b) / abs(y_t - y_b), 4)
 
 
-def find_colour(image: np.ndarray) -> None:
-    """Find the pixels in an image with colour within a given range.
+def find_colour(image: np.ndarray) -> np.ndarray:
+    """Isolate the blue pixels in a RGB image.
 
     Parameters
     ----------
     image: np.ndarray
         The input file
-    """
-    # Define the list of boundaries
-    boundaries = [
-        # ([17, 15, 100], [50, 56, 200]),  # red
-        ([86, 4, 4], [255, 100, 100])  # blue
-        # ([25, 146, 190], [62, 174, 250]),  # yellow
-        # ([103, 86, 65], [145, 133, 128])  # grey
-    ]
 
-    # Loop over the boundaries for (lower, upper) in boundaries:
-    lower, upper = boundaries[0]
-    lower = np.array(lower, dtype="uint8")
-    upper = np.array(upper, dtype="uint8")
-    # Find the colours within the specified boundaries and apply
-    mask = cv2.inRange(image, lower, upper)
-    output = cv2.bitwise_and(image, image, mask=mask)
-    # Set the masked pixels to white
-    output[output > 0] = 255
+    Returns
+    -------
+    np.ndarray
+        New image with red and green channels set to zero
+    """
+    image[:, :, 0] = 0
+    image[:, :, 1] = 0
 
     # # === < Show figures > ===
     # import matplotlib.pyplot as plt
@@ -186,10 +150,10 @@ def find_colour(image: np.ndarray) -> None:
     # # plt.show()
     # # === </ Show figures > ===
     # Save the black/white image of the blue structures
-    cv2.imwrite("out/new_im.jpg", np.hstack([output]))
+    return image
 
 
-def img_analysis(location: str) -> float:
+def img_analysis(location: str) -> Tuple[float, np.ndarray]:
     """Analyse image for a colour and return the scaling of the plot axis in the image.
 
     Parameters
@@ -201,6 +165,8 @@ def img_analysis(location: str) -> float:
     -------
     float:
         The scaling to make pixels and value axis in plot equal.
+    np.ndarray
+        Cropped image, the interesting part to do a line fit to.
     """
     # Download image
     image = download(location)
@@ -212,9 +178,9 @@ def img_analysis(location: str) -> float:
 
     # Find colour of a given image and set to white,
     # the rest is set to black. Then save.
-    find_colour(image)
+    im = find_colour(image)
 
-    return scaling
+    return scaling, im
 
 
 def main() -> None:

@@ -1,16 +1,8 @@
 """Test cases for the image_analysis module."""
-import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-from click.testing import CliRunner
 
 from northern_lights_forecast import image_analysis
-
-
-@pytest.fixture
-def runner() -> CliRunner:
-    """Fixture for invoking command-line interfaces."""
-    return CliRunner()
 
 
 def test_mean_x() -> None:
@@ -46,40 +38,27 @@ def test_removel_line() -> None:
 
 # Create plot of simple data in a mock file system, load into the function and compare
 # the new plot with the original.
-def test_grab_blue_line(runner: CliRunner) -> None:
+def test_grab_blue_line() -> None:
     """Test that we are able to obtain line in plot."""
-    with pytest.raises(ValueError):
-        _ = image_analysis.grab_blue_line(1.0, "not_a_file")
-        _ = image_analysis.grab_blue_line(1.0, "not_a_file.png")
-
-    with runner.isolated_filesystem():
-        fake_image()
-        scale1 = 1
-        scale2 = 10
-        gradient1 = image_analysis.grab_blue_line(scale1, img_file="fake_image.jpg")
-        gradient2 = image_analysis.grab_blue_line(scale2, img_file="fake_image.jpg")
-        assert abs(10 * gradient1 - gradient2) < 1e-10
+    im = fake_image()
+    scale1 = 1
+    scale2 = 10
+    gradient1 = image_analysis.grab_blue_line(scale1, im)
+    gradient2 = image_analysis.grab_blue_line(scale2, im)
+    assert abs(10 * gradient1 - gradient2) < 1e-10
 
 
-def fake_image() -> None:
+def fake_image() -> np.ndarray:
     """Create mock image for test cases."""
-    x = np.linspace(0, 10, 100)
-    y = np.linspace(0, 10, 100)
-    y[50:] = np.flip(y[:50])
-    z = np.ones_like(y)
-
-    plt.style.use("dark_background")
-    fig = plt.figure(figsize=(10, 10), dpi=100)
-    ax = fig.add_subplot(1, 1, 1)
-    ax.plot(x, y, c="w")
-    ax.plot(x, z, c="w")
-    ax.axis("off")
-    ax.set_xlim([0, 10])
-    ax.set_ylim([0, 10])
-    extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
-    fig.savefig("fake_image.jpg", dpi=100, bbox_inches=extent)
+    im = np.zeros((100, 100, 3))
+    for i in range(50):
+        im[-1 - i, i, 2] = 255
+        im[-1 - i, 99 - i, 2] = 255
+    im[80, :, 2] = 255
+    return im
 
 
-# if __name__ == "__main__":
-#     fake_image()
-#     gradient1 = image_analysis.grab_blue_line(1, img_file="fake_image.jpg")
+if __name__ == "__main__":
+    im = fake_image()
+    gradient1 = image_analysis.grab_blue_line(1, im)
+    test_grab_blue_line()
