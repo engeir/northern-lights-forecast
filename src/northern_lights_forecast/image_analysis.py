@@ -90,7 +90,16 @@ def grab_blue_line(scaling: float, im: np.ndarray) -> float:
     -------
     float
         Minimum derivative from the last 20% of the line.
+
+    Raises
+    ------
+    IndexError
+        If the input image do not have the correct dimensions.
     """
+    if im.ndim != 3:
+        raise IndexError("Input image must be three dimensional.")
+    if im.shape[2] != 3:
+        raise IndexError("Input image must have three color channels (RGB).")
     # Get x and y coordinates of all blue pixels
     blue = [0, 0, 255]
     y_where, x_where = np.where(np.all(im == blue, axis=2))
