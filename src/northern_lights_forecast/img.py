@@ -60,9 +60,7 @@ def download(location: str) -> np.ndarray:
     """
     loc = __PLACE__[location]
     url = f"https://flux.phys.uit.no/Last24/Last24_{loc}.gif"
-    im = plt.imread(url, format="jpg")[:, :, :3]
-
-    return im
+    return plt.imread(url, format="jpg")[:, :, :3]
 
 
 def read(image: np.ndarray) -> float:
@@ -109,19 +107,12 @@ def read(image: np.ndarray) -> float:
         if y_level != int(ell[2]):
             y_level = int(ell[2])
             c += 1
-            if c == 1:
-                lim_0 += ell[0]
-                y_0 = ell[2]
-            elif c == 2:
-                lim_1 += ell[0]
-                y_1 = ell[2]
-        elif y_level == int(ell[2]):
-            if c == 1:
-                lim_0 += ell[0]
-                y_0 = ell[2]
-            elif c == 2:
-                lim_1 += ell[0]
-                y_1 = ell[2]
+        if c == 1:
+            lim_0 += ell[0]
+            y_0 = ell[2]
+        elif c == 2:
+            lim_1 += ell[0]
+            y_1 = ell[2]
         if c >= 3:
             break
     lim_b = float(lim_0[::-1])
