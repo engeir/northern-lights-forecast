@@ -77,7 +77,11 @@ def forecast(loc: str, dy: float) -> str:
     else:
         return "None"
     weather_condition = requests.get(f"https://wttr.in/{loc}?format=%C")
-    txt += f"The weather conditions right now: *{weather_condition.text.lower()}*.\n\n"
+    weather_symbol = requests.get(f"https://wttr.in/{loc}?format=%c")
+    if all([weather_symbol.ok, weather_condition.ok]):
+        w_s_txt = weather_symbol.text
+        w_c_txt = weather_condition.text.lower()
+        txt += f"The weather conditions right now: *{w_c_txt}* {w_s_txt}\n\n"
     txt += "__Have a look at: http://fox.phys.uit.no/ASC/ASC01.html __"
     return txt
 
