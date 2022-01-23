@@ -64,9 +64,6 @@ Install tesseract_, used with the package pytesseract.
 
 Then get yourself a telegram bot using `this guide`_.
 
-You might need to install :code:`opencv` manually. If you want to run the bot on for
-example a raspberry pi, check out `this video`_ for installation of :code:`opencv`.
-
 Set up a virtual environment and activate. (Use whatever, for example poetry:
 :code:`poetry shell`.)
 
