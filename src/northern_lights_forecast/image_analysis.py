@@ -112,7 +112,7 @@ def grab_blue_line(scaling: float, im: np.ndarray) -> float:
     # === < Plot the result > ===
     # import matplotlib.pyplot as plt
 
-    y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
+    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
     # Rescale x-axis to 22-hour plot
     # TODO: find the exact timespan used in the image
     # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
