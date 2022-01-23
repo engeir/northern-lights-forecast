@@ -97,7 +97,7 @@ def get_location_forecast(message) -> None:
         w_c_txt = w_c.text.lower()
         txt += (
             " with weather conditions described as "
-            + f"{w_s_txt}<b>{w_c_txt}</b>{w_s_txt}\n\n"
+            + f"{w_s_txt}<b>{w_c_txt}</b> {w_s_txt}\n\n"
             + "<i>Usually, less than -0.5 is okay, less than -1 is good "
             + "and less than -2 is get the fuck out right now!</i>"
         )
