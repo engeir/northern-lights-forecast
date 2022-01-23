@@ -87,8 +87,8 @@ def get_location_forecast(message) -> None:
         message.chat.id,
         f"Checking the magnetometer near {location} from the past ~3 hours...",
     )
-    scaling = img.img_analysis(location)
-    dy = ima.grab_blue_line(scaling)
+    scaling, im = img.img_analysis(location)
+    dy = ima.grab_blue_line(scaling, im)
     txt = f"The gradient in {location} is now at <b>{dy}</b>"
     w_s = requests.get(f"https://wttr.in/{location}?format=%c")
     w_c = requests.get(f"https://wttr.in/{location}?format=%C")
