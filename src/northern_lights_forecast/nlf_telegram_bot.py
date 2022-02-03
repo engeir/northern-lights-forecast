@@ -3,14 +3,25 @@ import configparser
 
 import requests
 import telebot
+import telegram_send
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
 from northern_lights_forecast.__init__ import __version__
 
+# Copied over (and modified) from
+# https://tinyurl.com/telegram-send-config-line
+conf = telegram_send.get_config_path()
 config = configparser.ConfigParser()
-config.read("config.ini")
-TOKEN = config["TELEBOT"]["token"]
+if not config.read(conf) or not config.has_section("telegram"):
+    raise telegram_send.ConfigError("Config not found")
+missing_options = set(["token", "chat_id"]) - set(config.options("telegram"))
+if len(missing_options) > 0:
+    raise telegram_send.ConfigError(
+        "Missing options in config: {}".format(", ".join(missing_options))
+    )
+config = config["telegram"]
+TOKEN = config["token"]
 # You can set parse_mode by default. HTML or MARKDOWN
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
