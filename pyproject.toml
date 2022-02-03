@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "northern-lights-forecast"
-version = "3.0.1"
+version = "3.1.0"
 description = "A simple web scraping northern lights forecast that automatically send a telegram notification during substorm events"
 authors = ["Eirik Rolland Enger <eirroleng@gmail.com>"]
 license = "MIT"
