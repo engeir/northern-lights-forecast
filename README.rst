@@ -117,6 +117,7 @@ query for forecasts live. This includes the commands:
 
 * :code:`/start` and :code:`/help`: this will do the same thing, greet you with a helpful
   message
+* :code:`/version`: which will print out the version of the project
 * :code:`/locations`: which will print out the valid locations a forecast can be obtained
   from
 * :code:`Forecast <location>`: that is, any message that starts with the word

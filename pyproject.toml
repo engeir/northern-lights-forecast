@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "northern-lights-forecast"
-version = "3.0.1"
+version = "4.0.0"
 description = "A simple web scraping northern lights forecast that automatically send a telegram notification during substorm events"
 authors = ["Eirik Rolland Enger <eirroleng@gmail.com>"]
 license = "MIT"
@@ -9,7 +9,6 @@ homepage = "https://github.com/engeir/northern-lights-forecast"
 repository = "https://github.com/engeir/northern-lights-forecast"
 documentation = "https://northern-lights-forecast.readthedocs.io"
 classifiers = [
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -22,13 +21,13 @@ nlf = "northern_lights_forecast.__main__:main"
 Changelog = "https://github.com/engeir/northern-lights-forecast/releases"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.11"
+python = ">=3.8,<3.11"
 click = "^7.0"
-numpy = "^1.20.2"
 pytesseract = "^0.3.7"
 telegram-send = "^0.25"
 pyTelegramBotAPI = "^4.3.0"
 matplotlib = "^3.5.1"
+numpy = "^1.22.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
