@@ -29,6 +29,7 @@ pyTelegramBotAPI = "^4.3.0"
 matplotlib = "^3.5.1"
 numpy = "^1.22.1"
 pid = "^3.0.4"
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
