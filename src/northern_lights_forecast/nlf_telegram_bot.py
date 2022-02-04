@@ -1,9 +1,12 @@
 """Implementation of commands and message handlers to be used with the telegram bot."""
 import configparser
+import sys
 
 import requests
 import telebot
 import telegram_send
+from pid import PidFile
+from pid import PidFileError
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
@@ -121,4 +124,8 @@ def get_location_forecast(message) -> None:
     bot.send_message(message.chat.id, txt)
 
 
-bot.infinity_polling()
+try:
+    with PidFile() as p:
+        bot.infinity_polling()
+except PidFileError:
+    sys.exit(0)

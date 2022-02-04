@@ -28,6 +28,7 @@ telegram-send = "^0.25"
 pyTelegramBotAPI = "^4.3.0"
 matplotlib = "^3.5.1"
 numpy = "^1.22.1"
+pid = "^3.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
