@@ -1,9 +1,15 @@
 """Implementation of commands and message handlers to be used with the telegram bot."""
 import configparser
+import os
+import signal
+import sys
 
+import click
 import requests
 import telebot
 import telegram_send
+from pid import PidFile
+from pid import PidFileError
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
@@ -74,6 +80,31 @@ def is_forecast(message) -> bool:
     return False
 
 
+def construct_message(location) -> str:
+    """Construct the message to be sent."""
+    scaling, im = img.img_analysis(location)
+    dy = ima.grab_blue_line(scaling, im)
+    txt = f"The gradient in {location} is now at <b>{dy}</b>"
+    w_s = requests.get(f"https://wttr.in/{location}?format=%c")
+    w_c = requests.get(f"https://wttr.in/{location}?format=%C")
+    if all([w_s.ok, w_c.ok]):
+        w_s_txt = w_s.text
+        w_c_txt = w_c.text.lower()
+        txt += (
+            " with weather conditions described as "
+            + f"{w_s_txt}<b>{w_c_txt}</b> {w_s_txt}\n\n"
+            + "<i>Usually, less than -0.5 is okay, less than -1 is good "
+            + "and less than -2 is get the fuck out right now!</i>"
+        )
+    else:
+        txt += (
+            ".\n\n<i>Usually, less than -0.5 is okay, less than -1 is good "
+            + "and less than -2 is get the fuck out right now!</i>\n\n"
+            + "\U0001F6D1 <i>No weather data found</i> \U0001F6D1"
+        )
+    return txt
+
+
 @bot.message_handler(func=is_forecast)
 def get_location_forecast(message) -> None:
     """Run the Northern Lights Forecast."""
@@ -98,27 +129,39 @@ def get_location_forecast(message) -> None:
         message.chat.id,
         f"Checking the magnetometer near {location} from the past ~3 hours...",
     )
-    scaling, im = img.img_analysis(location)
-    dy = ima.grab_blue_line(scaling, im)
-    txt = f"The gradient in {location} is now at <b>{dy}</b>"
-    w_s = requests.get(f"https://wttr.in/{location}?format=%c")
-    w_c = requests.get(f"https://wttr.in/{location}?format=%C")
-    if all([w_s.ok, w_c.ok]):
-        w_s_txt = w_s.text
-        w_c_txt = w_c.text.lower()
-        txt += (
-            " with weather conditions described as "
-            + f"{w_s_txt}<b>{w_c_txt}</b> {w_s_txt}\n\n"
-            + "<i>Usually, less than -0.5 is okay, less than -1 is good "
-            + "and less than -2 is get the fuck out right now!</i>"
-        )
-    else:
-        txt += (
-            ".\n\n<i>Usually, less than -0.5 is okay, less than -1 is good "
-            + "and less than -2 is get the fuck out right now!</i>\n\n"
-            + "\U0001F6D1 <i>No weather data found</i> \U0001F6D1"
-        )
+    txt = construct_message(location)
     bot.send_message(message.chat.id, txt)
 
 
-bot.infinity_polling()
+@click.command()
+@click.option(
+    "--stop",
+    is_flag=True,
+    type=bool,
+    show_default=True,
+    help="Stop the bot.",
+)
+def main(stop: bool) -> None:
+    """Northern Lights Forecast Telegram Bot."""
+    pid_dir = os.path.join(os.path.expanduser("~"), ".local", "share", "nlf")
+    pid_file = "nlf-bot"
+    if stop:
+        pid_full = os.path.join(pid_dir, f"{pid_file}.pid")
+        if os.path.exists(pid_full):
+            with open(pid_full, "r") as f:
+                pid = int(f.read())
+            print("Stoppfing the nlf bot daemon...")
+            os.kill(pid, signal.SIGTERM)
+        else:
+            print(f"Pid file ({pid_full}) not found")
+    else:
+        try:
+            with PidFile(pid_file, piddir=pid_dir):
+                bot.infinity_polling()
+        except PidFileError:
+            print("nlf bot daemon is already running, exiting.")
+            sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

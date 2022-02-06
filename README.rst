@@ -81,7 +81,23 @@ Set up a cron job:
    sh crontab.sh
 
 Running :code:`sh croptab.sh -p` will print to the console instead of installing a new
-cron job.
+cron job. It is important to get the correct path to the python virtual environment,
+therefore, the shell script must be run when the virtual environment is activated. To be
+certain everything is set up correctly you may want to run :code:`poetry run sh
+croptab.sh`.
+
+The cron script will try to start the bot daemon every 10 minutes. The PID for the process
+is saved to :code:`$HOME/.local/share/nlf/nlf-bot.pid`. To stop the bot daemon, run
+
+.. code:: console
+
+    nlfd --stop
+
+The daemon can also be started manually with
+
+.. code:: console
+
+    nlfd
 
 Usage
 -----

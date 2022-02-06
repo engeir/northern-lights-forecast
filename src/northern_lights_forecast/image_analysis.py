@@ -99,7 +99,7 @@ def grab_blue_line(scaling: float, im: np.ndarray) -> float:
     if im.ndim != 3:
         raise IndexError("Input image must be three dimensional.")
     if im.shape[2] != 3:
-        raise IndexError("Input image must have three color channels (RGB).")
+        raise IndexError("Input image must have three colour channels (RGB).")
     # Get x and y coordinates of all blue pixels
     blue = [0, 0, 255]
     y_where, x_where = np.where(np.all(im == blue, axis=2))
@@ -117,28 +117,5 @@ def grab_blue_line(scaling: float, im: np.ndarray) -> float:
     y_i = -np.interp(x_, x_mean, y_mean)
     dy = savgol_filter(y_i, 501, 3, deriv=1)
     dy = dy[int(len(x_) * 0.8) :]
-
-    # === < Plot the result > ===
-    # import matplotlib.pyplot as plt
-
-    # y_ = savgol_filter(y_i, 501, 3)  # window size 501, polynomial order 3
-    # Rescale x-axis to 22-hour plot
-    # TODO: find the exact timespan used in the image
-    # x = (x - np.min(x)) / (np.max(x) - np.min(x)) * 22
-    # x_ = (x_ - np.min(x_)) / (np.max(x_) - np.min(x_)) * 22
-    # plt.figure()
-    # plt.imshow(im)
-    # plt.plot(x, y / scaling, "b")
-    # plt.plot(x_, -y_ / scaling, "r")
-
-    # plt.figure()
-    # plt.plot(x_[int(len(x_) * .8):], y_[int(len(x_) * .8):], 'r')
-    # plt.savefig('after.png', dpi=200)
-    # plt.figure()
-    # plt.plot(x_, dy, 'r')
-    # if img_file is None:
-    #     plt.savefig("out/plot.pdf", dpi=300, bbox_inches="tight", format="pdf")
-    # plt.show()
-    # === </ Plot the result > ===
 
     return float(np.min(dy))
