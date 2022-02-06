@@ -140,16 +140,6 @@ def find_colour(image: np.ndarray) -> np.ndarray:
     image[:, :, 0] = 0
     image[:, :, 1] = 0
 
-    # # === < Show figures > ===
-    # import matplotlib.pyplot as plt
-    # plt.figure()
-    # plt.imshow(image)
-    # # plt.savefig('before.png', dpi=200)
-    # # plt.figure()
-    # # plt.imshow(output)
-    # # plt.show()
-    # # === </ Show figures > ===
-    # Save the black/white image of the blue structures
     return image
 
 
