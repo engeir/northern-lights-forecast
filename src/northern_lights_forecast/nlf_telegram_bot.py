@@ -1,7 +1,10 @@
 """Implementation of commands and message handlers to be used with the telegram bot."""
 import configparser
+import os
+import signal
 import sys
 
+import click
 import requests
 import telebot
 import telegram_send
@@ -124,13 +127,34 @@ def get_location_forecast(message) -> None:
     bot.send_message(message.chat.id, txt)
 
 
-def main() -> None:
+@click.command()
+@click.option(
+    "--stop",
+    is_flag=True,
+    type=bool,
+    show_default=True,
+    help="Stop the bot.",
+)
+def main(stop: bool) -> None:
     """Northern Lights Forecast Telegram Bot."""
-    try:
-        with PidFile():
-            bot.infinity_polling()
-    except PidFileError:
-        sys.exit(0)
+    pid_dir = os.path.join(os.path.expanduser("~"), ".local", "share", "nlf")
+    pid_file = "nlf-bot"
+    if stop:
+        pid_full = os.path.join(pid_dir, pid_file + ".pid")
+        if os.path.exists(pid_full):
+            with open(pid_full, "r") as f:
+                pid = int(f.read())
+            print("Stoppfing the nlf bot daemon...")
+            os.kill(pid, signal.SIGTERM)
+        else:
+            print(f"Pid file ({pid_full}) not found")
+    else:
+        try:
+            with PidFile(pid_file, piddir=pid_dir):
+                bot.infinity_polling()
+        except PidFileError:
+            print("nlf bot daemon is already running, exiting.")
+            sys.exit(0)
 
 
 if __name__ == "__main__":
