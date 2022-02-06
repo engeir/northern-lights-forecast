@@ -124,8 +124,14 @@ def get_location_forecast(message) -> None:
     bot.send_message(message.chat.id, txt)
 
 
-try:
-    with PidFile() as p:
-        bot.infinity_polling()
-except PidFileError:
-    sys.exit(0)
+def main() -> None:
+    """Northern Lights Forecast Telegram Bot."""
+    try:
+        with PidFile():
+            bot.infinity_polling()
+    except PidFileError:
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

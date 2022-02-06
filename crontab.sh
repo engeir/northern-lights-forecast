@@ -27,11 +27,13 @@ else
 fi
 before="# >>> Added by nlf - Northern Lights Forecast >>>"
 after="# <<< Added by nlf - Northern Lights Forecast <<<"
-line="0 0-8,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd $PWD && $exe src/northern_lights_forecast/__main__.py > t.txt 2>&1"
+run_forecast="0 0-8,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd $PWD && $exe src/northern_lights_forecast/__main__.py > /dev/null 2>&1"
+start_bot="*/10 * * * * export DISPLAY=:0 && cd $PWD && $exe src/northern_lights_forecast/nlf_telegram_bot.py > /dev/null 2>&1"
 if "$has_p_option"; then
     echo "$before"
     echo "$newpath"
-    echo "$line"
+    echo "$run_forecast"
+    echo "$start_bot"
     echo "$after"
 else
     (
@@ -44,7 +46,11 @@ else
     ) | crontab -
     (
         crontab -l
-        echo "$line"
+        echo "$run_forecast"
+    ) | crontab -
+    (
+        crontab -l
+        echo "$start_bot"
     ) | crontab -
     (
         crontab -l
