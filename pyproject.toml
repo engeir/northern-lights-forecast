@@ -23,7 +23,7 @@ Changelog = "https://github.com/engeir/northern-lights-forecast/releases"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
-click = "^7.0"
+click = ">=7,<9"
 pytesseract = "^0.3.7"
 telegram-send = "^0.25"
 pyTelegramBotAPI = "^4.3.0"
