@@ -48,8 +48,7 @@ def send_version(message) -> None:
     """Send a welcome message with info about the bot."""
     bot.send_message(
         message.chat.id,
-        f"nlf — version {__version__}\n\n"
-        + "https://github.com/engeir/northern-lights-forecast",
+        f'nlf — version {__version__}\n\nhttps://github.com/engeir/northern-lights-forecast',
     )
 
 
@@ -90,12 +89,8 @@ def construct_message(location) -> str:
     if all([w_s.ok, w_c.ok]):
         w_s_txt = w_s.text
         w_c_txt = w_c.text.lower()
-        txt += (
-            " with weather conditions described as "
-            + f"{w_s_txt}<b>{w_c_txt}</b> {w_s_txt}\n\n"
-            + "<i>Usually, less than -0.5 is okay, less than -1 is good "
-            + "and less than -2 is get the fuck out right now!</i>"
-        )
+        txt += f' with weather conditions described as {w_s_txt}<b>{w_c_txt}</b> {w_s_txt}\n\n<i>Usually, less than -0.5 is okay, less than -1 is good and less than -2 is get the fuck out right now!</i>'
+
     else:
         txt += (
             ".\n\n<i>Usually, less than -0.5 is okay, less than -1 is good "
@@ -120,9 +115,9 @@ def get_location_forecast(message) -> None:
         # Send message that you did it wrong
         bot.send_message(
             message.chat.id,
-            f"None of {words} are valid location(s). Type /locations to "
-            + "get a complete list of all locations.",
+            f'None of {words} are valid location(s). Type /locations to get a complete list of all locations.',
         )
+
         return
 
     bot.send_message(
