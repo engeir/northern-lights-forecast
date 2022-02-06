@@ -146,7 +146,7 @@ def main(stop: bool) -> None:
     pid_dir = os.path.join(os.path.expanduser("~"), ".local", "share", "nlf")
     pid_file = "nlf-bot"
     if stop:
-        pid_full = os.path.join(pid_dir, pid_file + ".pid")
+        pid_full = os.path.join(pid_dir, f"{pid_file}.pid")
         if os.path.exists(pid_full):
             with open(pid_full, "r") as f:
                 pid = int(f.read())
