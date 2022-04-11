@@ -1127,16 +1127,16 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
 name = "telegram-send"
-version = "0.25"
+version = "0.33.1"
 description = "Send messages and files over Telegram from the command-line."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 appdirs = "*"
 colorama = "*"
-python-telegram-bot = ">=12.1.1"
+python-telegram-bot = ">=13.0"
 
 [[package]]
 name = "toml"
@@ -1273,7 +1273,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "5bcb3cff1c0b4546c55cc7010064c90e53c345a0e847798bead6e39bed43d042"
+content-hash = "13b13cd3488883f1b5c91b48a8d4a4ffcb15adf3759d6b893405c4fe76ea3212"
 
 [metadata.files]
 alabaster = [
@@ -2047,8 +2047,8 @@ stevedore = [
     {file = "stevedore-3.5.0.tar.gz", hash = "sha256:f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335"},
 ]
 telegram-send = [
-    {file = "telegram-send-0.25.tar.gz", hash = "sha256:e6cda001a89e1cd02317fcd0456288a0cdd5aa56970dec6fbd83ad9af1db05ac"},
-    {file = "telegram_send-0.25-py2.py3-none-any.whl", hash = "sha256:5d4751b9f080778dbaa9703e878e3a0b6ae8b5319f5e0dcde834e4bdfe729348"},
+    {file = "telegram-send-0.33.1.tar.gz", hash = "sha256:fc65ec8e7012503edd9cd87ffb0dd09e0b9ede3adb992a503ebc724a3d305095"},
+    {file = "telegram_send-0.33.1-py3-none-any.whl", hash = "sha256:e125117ec4d64e2699e879bbb6125f7e9de16bfdffa3586a9e6d7c7ca2d152a3"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
