@@ -734,7 +734,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pytelegrambotapi"
-version = "4.5.0"
+version = "4.5.1"
 description = "Python Telegram bot api."
 category = "main"
 optional = false
@@ -1128,7 +1128,7 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
 name = "telegram-send"
-version = "0.33.1"
+version = "0.34"
 description = "Send messages and files over Telegram from the command-line."
 category = "main"
 optional = false
@@ -1274,7 +1274,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "d85ebef8d6bdbc50625bd87b0f90ea1cc1b82557db9a6228f0deaf5da9b199a7"
+content-hash = "1dea362a4573d0135f1fc59f85553106af98a5574046220ae938b21a41338c56"
 
 [metadata.files]
 alabaster = [
@@ -1855,7 +1855,7 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pytelegrambotapi = [
-    {file = "pyTelegramBotAPI-4.5.0.tar.gz", hash = "sha256:2689db6f6e8c6cafcb2b3b45901ec895a1d09bdf033d89f89582b88a40cfa5a1"},
+    {file = "pyTelegramBotAPI-4.5.1.tar.gz", hash = "sha256:0a5cdd92f1f5bb3d6a87fab7a6b7e7f27d1ea2c637cb7994b1c6dbe0429b9894"},
 ]
 pytesseract = [
     {file = "pytesseract-0.3.9-py2.py3-none-any.whl", hash = "sha256:fecda37d1e4eaf744c657cd03a5daab4eb97c61506ac5550274322c8ae32eca2"},
@@ -2048,8 +2048,8 @@ stevedore = [
     {file = "stevedore-3.5.0.tar.gz", hash = "sha256:f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335"},
 ]
 telegram-send = [
-    {file = "telegram-send-0.33.1.tar.gz", hash = "sha256:fc65ec8e7012503edd9cd87ffb0dd09e0b9ede3adb992a503ebc724a3d305095"},
-    {file = "telegram_send-0.33.1-py3-none-any.whl", hash = "sha256:e125117ec4d64e2699e879bbb6125f7e9de16bfdffa3586a9e6d7c7ca2d152a3"},
+    {file = "telegram-send-0.34.tar.gz", hash = "sha256:291f6653c16f03ebcecf81422258eb164f5708db610bc779e687f93ed6bfa324"},
+    {file = "telegram_send-0.34-py3-none-any.whl", hash = "sha256:892b1cebc7e01042bf9c549d0648b1fa8ab9b755b8a625ca84ea4836ccafdcad"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
