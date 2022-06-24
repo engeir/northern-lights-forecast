@@ -734,7 +734,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pytelegrambotapi"
-version = "4.5.0"
+version = "4.6.0"
 description = "Python Telegram bot api."
 category = "main"
 optional = false
@@ -1857,7 +1857,7 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pytelegrambotapi = [
-    {file = "pyTelegramBotAPI-4.5.0.tar.gz", hash = "sha256:2689db6f6e8c6cafcb2b3b45901ec895a1d09bdf033d89f89582b88a40cfa5a1"},
+    {file = "pyTelegramBotAPI-4.6.0.tar.gz", hash = "sha256:b1aea4c3c867586b7efaa80d54db3b710f4b24aeb8095bfcef568ff27d3ca510"},
 ]
 pytesseract = [
     {file = "pytesseract-0.3.9-py2.py3-none-any.whl", hash = "sha256:fecda37d1e4eaf744c657cd03a5daab4eb97c61506ac5550274322c8ae32eca2"},
