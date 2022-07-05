@@ -39,7 +39,7 @@ safety = "^1.10.3"
 mypy = "^0.961"
 typeguard = "^2.13.3"
 xdoctest = {extras = ["colors"], version = "^1.0.0"}
-sphinx = "^4.5.0"
+sphinx = "^5.0.2"
 sphinx-autobuild = "^2020.9.1"
 pre-commit = "^2.18.1"
 flake8 = "^4.0.1"
