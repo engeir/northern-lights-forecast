@@ -84,7 +84,10 @@ def is_forecast(message: telebot.types.Message) -> bool:
 
 def construct_message(location: str) -> str:
     """Construct the message to be sent."""
-    scaling, im = img.img_analysis(location)
+    img_analysis_out = img.img_analysis(location)
+    if isinstance(img_analysis_out, str):
+        return img_analysis_out
+    scaling, im = img_analysis_out
     dy = ima.grab_blue_line(scaling, im)
     txt = f"The gradient in {location} is now at <b>{dy}</b>"
     w_s = requests.get(f"https://wttr.in/{location}?format=%c")
