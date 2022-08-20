@@ -4,7 +4,9 @@ This script finds all pixels with colour within a range a colours, while all
 other is coloured black. From
 https://www.pyimagesearch.com/2014/08/04/opencv-python-color-detection/
 """
+import urllib
 from typing import Tuple
+from typing import Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -45,7 +47,7 @@ __PLACE__ = {
 }
 
 
-def download(location: str) -> np.ndarray:
+def download(location: str) -> Union[np.ndarray, str]:
     """Download a `.gif` file, return as `.jpg`.
 
     Parameters
@@ -55,12 +57,17 @@ def download(location: str) -> np.ndarray:
 
     Returns
     -------
-    np.ndarray:
-        the downloaded file as `.jpg`
+    np.ndarray or str
+        The downloaded file as `.jpg` or an error message.
     """
     loc = __PLACE__[location]
     url = f"https://flux.phys.uit.no/Last24/Last24_{loc}.gif"
-    return plt.imread(url, format="jpg")[:, :, :3]
+    try:
+        out_img = plt.imread(url, format="jpg")[:, :, :3]
+    except urllib.error.HTTPError:
+        return f"The magnetometer at {location} is unfortunately not working."
+    else:
+        return out_img
 
 
 def read(image: np.ndarray) -> float:
@@ -143,7 +150,7 @@ def find_colour(image: np.ndarray) -> np.ndarray:
     return image
 
 
-def img_analysis(location: str) -> Tuple[float, np.ndarray]:
+def img_analysis(location: str) -> Union[Tuple[float, np.ndarray], str]:
     """Analyse image for a colour and return the scaling of the plot axis in the image.
 
     Parameters
@@ -160,6 +167,8 @@ def img_analysis(location: str) -> Tuple[float, np.ndarray]:
     """
     # Download image
     image = download(location)
+    if isinstance(image, str):
+        return image
     scaling = read(image)
     # Crop image
     y_h = int(image.shape[0] * 0.4)
