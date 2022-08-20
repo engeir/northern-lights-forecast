@@ -3,6 +3,7 @@ import configparser
 import os
 import signal
 import sys
+from typing import Any
 
 import click
 import requests
@@ -18,22 +19,23 @@ from northern_lights_forecast.__init__ import __version__
 # Copied over (and modified) from
 # https://tinyurl.com/telegram-send-config-line
 conf = telegram_send.get_config_path()
-config = configparser.ConfigParser()
-if not config.read(conf) or not config.has_section("telegram"):
+config_parser = configparser.ConfigParser()
+if not config_parser.read(conf) or not config_parser.has_section("telegram"):
     raise telegram_send.ConfigError("Config not found")
-missing_options = set(["token", "chat_id"]) - set(config.options("telegram"))
+missing_options = {"token", "chat_id"} - set(config_parser.options("telegram"))
 if len(missing_options) > 0:
     raise telegram_send.ConfigError(
-        "Missing options in config: {}".format(", ".join(missing_options))
+        f'Missing options in config: {", ".join(missing_options)}'
     )
-config = config["telegram"]
-TOKEN = config["token"]
+
+config = config_parser["telegram"]
+TOKEN = config_parser["token"]
 # You can set parse_mode by default. HTML or MARKDOWN
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
 
 @bot.message_handler(commands=["start", "help"])
-def send_welcome(message) -> None:
+def send_welcome(message: telebot.types.Message) -> Any:
     """Send a welcome message with info about the bot."""
     bot.send_message(
         message.chat.id,
@@ -44,7 +46,7 @@ def send_welcome(message) -> None:
 
 
 @bot.message_handler(commands=["version"])
-def send_version(message) -> None:
+def send_version(message: telebot.types.Message) -> None:
     """Send a welcome message with info about the bot."""
     bot.send_message(
         message.chat.id,
@@ -63,7 +65,7 @@ def send_version(message) -> None:
 
 
 @bot.message_handler(commands=["locations"])
-def send_locations(message) -> None:
+def send_locations(message: telebot.types.Message) -> None:
     """Send a list of available locations."""
     txt = "All nlf supported locations:\n\n"
     for loc in img.__PLACE__.keys():
@@ -71,7 +73,7 @@ def send_locations(message) -> None:
     bot.send_message(message.chat.id, txt)
 
 
-def is_forecast(message) -> bool:
+def is_forecast(message: telebot.types.Message) -> bool:
     """Check if the message sent starts with 'forecast'."""
     words = message.text.split()
     if words[0].lower() == "forecast" and len(words) > 1:
@@ -80,7 +82,7 @@ def is_forecast(message) -> bool:
     return False
 
 
-def construct_message(location) -> str:
+def construct_message(location: str) -> str:
     """Construct the message to be sent."""
     scaling, im = img.img_analysis(location)
     dy = ima.grab_blue_line(scaling, im)
@@ -106,7 +108,7 @@ def construct_message(location) -> str:
 
 
 @bot.message_handler(func=is_forecast)
-def get_location_forecast(message) -> None:
+def get_location_forecast(message: telebot.types.Message) -> None:
     """Run the Northern Lights Forecast."""
     words = message.text.split()[1:]
     # check if any of the words are valid locations

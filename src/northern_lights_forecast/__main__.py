@@ -18,6 +18,13 @@ from northern_lights_forecast.__init__ import __version__
     + "Run with '--locations' option to list all available locations.",
 )
 @click.option(
+    "--local/--no-local",
+    type=bool,
+    default=False,
+    show_default=True,
+    help="Print to the terminal instead of sending to the telegram bot.",
+)
+@click.option(
     "--locations/--no-locations",
     type=bool,
     default=False,
@@ -31,7 +38,7 @@ from northern_lights_forecast.__init__ import __version__
     show_default=True,
     help="Test sending message to telegram.",
 )
-def main(location: str, locations: bool, test: bool) -> None:
+def main(location: str, locations: bool, test: bool, local: bool) -> None:
     """Northern Lights Forecast."""
     if test:
         nl.telegram_test()
@@ -45,7 +52,7 @@ def main(location: str, locations: bool, test: bool) -> None:
             f"'{location}' is not a valid location. Run with option "
             + "'--locations' to see available locations."
         )
-    nl.nlf(location)
+    nl.nlf(location, local)
 
 
 if __name__ == "__main__":
