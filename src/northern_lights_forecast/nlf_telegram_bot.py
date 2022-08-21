@@ -28,8 +28,7 @@ if len(missing_options) > 0:
         f'Missing options in config: {", ".join(missing_options)}'
     )
 
-config = config_parser["telegram"]
-TOKEN = config_parser["token"]
+TOKEN = config_parser.get("telegram", "token")
 # You can set parse_mode by default. HTML or MARKDOWN
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
