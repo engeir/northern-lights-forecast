@@ -8,9 +8,9 @@ from typing import Any
 import click
 import requests
 import telebot
-import telegram_send
 from pid import PidFile
 from pid import PidFileError
+from telegram_send import telegram_send
 
 import northern_lights_forecast.image_analysis as ima
 import northern_lights_forecast.img as img
