@@ -58,7 +58,7 @@ Clone the repository:
 
 .. code:: console
 
-    git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf
+    $ git clone https://github.com/engeir/northern-lights-forecast.git nlf && cd nlf
 
 Install tesseract_, used with the package pytesseract.
 
@@ -78,7 +78,7 @@ Set up a cron job:
 
 .. code:: console
 
-   sh crontab.sh
+   $ sh crontab.sh
 
 Running :code:`sh croptab.sh -p` will print to the console instead of installing a new
 cron job. It is important to get the correct path to the python virtual environment,
@@ -91,13 +91,13 @@ is saved to :code:`$HOME/.local/share/nlf/nlf-bot.pid`. To stop the bot daemon, 
 
 .. code:: console
 
-    nlfd --stop
+    $ nlfd --stop
 
 The daemon can also be started manually with
 
 .. code:: console
 
-    nlfd
+    $ nlfd
 
 Usage
 -----
@@ -106,6 +106,8 @@ Please see the `Command-line Reference <Usage_>`_ for details. Below is the outp
 :code:`nlf --help`:
 
 .. code:: console
+
+    $ nlf --help
 
     Usage: nlf [OPTIONS]
 
@@ -116,13 +118,12 @@ Please see the `Command-line Reference <Usage_>`_ for details. Below is the outp
       -l, --location TEXT           Which magnetometer to use. Run with '--
                                     locations' option to list all available
                                     locations.  [default: Tromsø]
-
+      --local / --no-local          Print to the terminal instead of sending to
+                                    the telegram bot.  [default: no-local]
       --locations / --no-locations  List out available magnetometer locations.
-                                    [default: False]
-
+                                    [default: no-locations]
       --test / --no-test            Test sending message to telegram.  [default:
-                                    False]
-
+                                    no-test]
       --help                        Show this message and exit.
 
 Telegram
@@ -173,13 +174,13 @@ through March, using cron to automate the task. Run
 
 .. code:: console
 
-    sh crontab.sh
+    $ sh crontab.sh
 
 to set this up, or edit the cron script manually with
 
 .. code:: console
 
-    env EDITOR=nano crontab -e
+    $ env EDITOR=nano crontab -e
 
 The general form of how you edit cron is as shown below, but to get the exact string you
 can run :code:`sh crontab.sh -p`, where the option :code:`-p` will make the script print
@@ -187,7 +188,7 @@ to the console rather than edit cron. The same options can be used when running 
 as a cron job as is specified in the `Command-line Reference <Usage_>`_ (e.g.\ the
 :code:`-l` option).
 
-.. code:: console
+.. code:: txt
 
     0 0-8,18-23 * 9-12,1-3 * export DISPLAY=:0 && cd /path/to/folder/containing/script && python src/northern_lights_forecast/__main__.py > t.txt 2>&1
 
