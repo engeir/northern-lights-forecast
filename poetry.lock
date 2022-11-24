@@ -67,17 +67,6 @@ python-versions = ">=3.6"
 pytz = ">=2015.7"
 
 [[package]]
-name = "backports.zoneinfo"
-version = "0.2.1"
-description = "Backport of the standard library zoneinfo module"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.extras]
-tzdata = ["tzdata"]
-
-[[package]]
 name = "bandit"
 version = "1.7.4"
 description = "Security oriented static analyser for python code."
@@ -110,7 +99,6 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
 tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
-typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -677,7 +665,7 @@ virtualenv = ">=20.0.8"
 
 [[package]]
 name = "pre-commit-hooks"
-version = "4.3.0"
+version = "4.4.0"
 description = "Some out-of-the-box hooks for pre-commit."
 category = "dev"
 optional = false
@@ -853,7 +841,6 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 
 [package.dependencies]
-"backports.zoneinfo" = {version = "*", markers = "python_version >= \"3.6\" and python_version < \"3.9\""}
 tzdata = {version = "*", markers = "python_version >= \"3.6\""}
 
 [[package]]
@@ -1032,7 +1019,6 @@ babel = ">=1.3"
 colorama = {version = ">=0.3.5", markers = "sys_platform == \"win32\""}
 docutils = ">=0.14,<0.20"
 imagesize = "*"
-importlib-metadata = {version = ">=4.4", markers = "python_version < \"3.10\""}
 Jinja2 = ">=2.3"
 packaging = "*"
 Pygments = ">=2.0"
@@ -1249,7 +1235,6 @@ optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-"backports.zoneinfo" = {version = "*", markers = "python_version < \"3.9\""}
 pytz-deprecation-shim = "*"
 tzdata = {version = "*", markers = "platform_system == \"Windows\""}
 
@@ -1325,8 +1310,8 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8,<3.11"
-content-hash = "9e3225ff89820a3d85bfcfeecf04cf0c43e2ffaa73577922a82bec461dbea54e"
+python-versions = "~3.10"
+content-hash = "34616f0c42ff22d3057112f3091653aca17cb958fa402d6d52a4614e94f2f9e8"
 
 [metadata.files]
 alabaster = [
@@ -1348,24 +1333,6 @@ attrs = [
 babel = [
     {file = "Babel-2.10.3-py3-none-any.whl", hash = "sha256:ff56f4892c1c4bf0d814575ea23471c230d544203c7748e8c68f0089478d48eb"},
     {file = "Babel-2.10.3.tar.gz", hash = "sha256:7614553711ee97490f732126dc077f8d0ae084ebc6a96e23db1482afabdb2c51"},
-]
-"backports.zoneinfo" = [
-    {file = "backports.zoneinfo-0.2.1-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:da6013fd84a690242c310d77ddb8441a559e9cb3d3d59ebac9aca1a57b2e18bc"},
-    {file = "backports.zoneinfo-0.2.1-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:89a48c0d158a3cc3f654da4c2de1ceba85263fafb861b98b59040a5086259722"},
-    {file = "backports.zoneinfo-0.2.1-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:1c5742112073a563c81f786e77514969acb58649bcdf6cdf0b4ed31a348d4546"},
-    {file = "backports.zoneinfo-0.2.1-cp36-cp36m-win32.whl", hash = "sha256:e8236383a20872c0cdf5a62b554b27538db7fa1bbec52429d8d106effbaeca08"},
-    {file = "backports.zoneinfo-0.2.1-cp36-cp36m-win_amd64.whl", hash = "sha256:8439c030a11780786a2002261569bdf362264f605dfa4d65090b64b05c9f79a7"},
-    {file = "backports.zoneinfo-0.2.1-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:f04e857b59d9d1ccc39ce2da1021d196e47234873820cbeaad210724b1ee28ac"},
-    {file = "backports.zoneinfo-0.2.1-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:17746bd546106fa389c51dbea67c8b7c8f0d14b5526a579ca6ccf5ed72c526cf"},
-    {file = "backports.zoneinfo-0.2.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:5c144945a7752ca544b4b78c8c41544cdfaf9786f25fe5ffb10e838e19a27570"},
-    {file = "backports.zoneinfo-0.2.1-cp37-cp37m-win32.whl", hash = "sha256:e55b384612d93be96506932a786bbcde5a2db7a9e6a4bb4bffe8b733f5b9036b"},
-    {file = "backports.zoneinfo-0.2.1-cp37-cp37m-win_amd64.whl", hash = "sha256:a76b38c52400b762e48131494ba26be363491ac4f9a04c1b7e92483d169f6582"},
-    {file = "backports.zoneinfo-0.2.1-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:8961c0f32cd0336fb8e8ead11a1f8cd99ec07145ec2931122faaac1c8f7fd987"},
-    {file = "backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:e81b76cace8eda1fca50e345242ba977f9be6ae3945af8d46326d776b4cf78d1"},
-    {file = "backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:7b0a64cda4145548fed9efc10322770f929b944ce5cee6c0dfe0c87bf4c0c8c9"},
-    {file = "backports.zoneinfo-0.2.1-cp38-cp38-win32.whl", hash = "sha256:1b13e654a55cd45672cb54ed12148cd33628f672548f373963b0bff67b217328"},
-    {file = "backports.zoneinfo-0.2.1-cp38-cp38-win_amd64.whl", hash = "sha256:4a0f800587060bf8880f954dbef70de6c11bbe59c673c3d818921f042f9954a6"},
-    {file = "backports.zoneinfo-0.2.1.tar.gz", hash = "sha256:fadbfe37f74051d024037f223b8e001611eac868b5c5b06144ef4d8b799862f2"},
 ]
 bandit = [
     {file = "bandit-1.7.4-py3-none-any.whl", hash = "sha256:412d3f259dab4077d0e7f0c11f50f650cc7d10db905d98f6520a95a18049658a"},
@@ -1958,8 +1925,8 @@ pre-commit = [
     {file = "pre_commit-2.20.0.tar.gz", hash = "sha256:a978dac7bc9ec0bcee55c18a277d553b0f419d259dadb4b9418ff2d00eb43959"},
 ]
 pre-commit-hooks = [
-    {file = "pre_commit_hooks-4.3.0-py2.py3-none-any.whl", hash = "sha256:9ccaf7c98794659d345080ee1ea0256a55ae059675045eebdbbc17c0be8c7e4b"},
-    {file = "pre_commit_hooks-4.3.0.tar.gz", hash = "sha256:fda598a4c834d030727e6a615722718b47510f4bed72df4c949f95ba9f5aaf88"},
+    {file = "pre_commit_hooks-4.4.0-py2.py3-none-any.whl", hash = "sha256:fc8837335476221ccccda3d176ed6ae29fe58753ce7e8b7863f5d0f987328fc6"},
+    {file = "pre_commit_hooks-4.4.0.tar.gz", hash = "sha256:7011eed8e1a25cde94693da009cba76392194cecc2f3f06c51a44ea6ad6c2af9"},
 ]
 psutil = [
     {file = "psutil-5.9.1-cp27-cp27m-manylinux2010_i686.whl", hash = "sha256:799759d809c31aab5fe4579e50addf84565e71c1dc9f1c31258f159ff70d3f87"},
