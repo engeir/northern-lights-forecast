@@ -21,8 +21,6 @@ package = "northern_lights_forecast"
 python_versions = ["3.10", "3.9", "3.8"]
 nox.options.sessions = (
     "pre-commit",
-    "safety",
-    # "mypy",
     "tests",
     "typeguard",
     "xdoctest",
@@ -154,26 +152,6 @@ def precommit(session: Session) -> None:
     session.run("pre-commit", *args)
     if args and args[0] == "install":
         activate_virtualenv_in_precommit_hooks(session)
-
-
-@session(python="3.10")
-def safety(session: Session) -> None:
-    """Scan dependencies for insecure packages."""
-    requirements = session.poetry.export_requirements()
-    session.install("safety")
-    session.run("safety", "check", f"--file={requirements}", "--bare")
-
-
-# @session(python=python_versions)
-# def mypy(session: Session) -> None:
-#     """Type-check using mypy."""
-#     args = session.posargs or ["src", "tests", "docs/conf.py"]
-#     install_with_constraints(session, "mypy")
-#     # session.install(".")
-#     # session.install("mypy", "pytest")
-#     session.run("mypy", *args)
-#     if not session.posargs:
-#         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
 @session(python=python_versions)
