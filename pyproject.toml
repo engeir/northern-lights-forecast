@@ -54,7 +54,7 @@ reorder-python-imports = "^3.9.0"
 pre-commit-hooks = "^4.4.0"
 sphinx-rtd-theme = "^0.5.1"
 sphinx-click = "^4.3.0"
-Pygments = "^2.12.0"
+Pygments = "^2.14.0"
 codecov = "^2.1.12"
 scipy = "^1.9.3"
 
